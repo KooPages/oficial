@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KooPages - Plataforma</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <svg class="logo-icon" viewBox="0 0 100 100">
+                    <use href="icons.svg#logo"></use>
+                </svg>
+                <h1 class="logo">KooPages</h1>
+            </div>
+            <p class="tagline">Tu directorio inteligente de sitios web con vista previa en tiempo real</p>
+        </header>
+
+        <div class="websites-grid" id="websitesGrid">
+            <!-- Los sitios web se cargarán aquí dinámicamente -->
+        </div>
+    </div>
+
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <div class="preview-title" id="previewTitle">Vista previa</div>
+                <div class="preview-controls">
+                    <button class="preview-btn" id="refreshPreview" title="Actualizar vista previa">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <use href="icons.svg#refresh"></use>
+                        </svg>
+                    </button>
+                    <button class="preview-btn" id="openExternal" title="Abrir en nueva pestaña">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <use href="icons.svg#external"></use>
+                        </svg>
+                    </button>
+                    <button class="close-preview" id="closePreview">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <use href="icons.svg#close"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="preview-loading" id="previewLoading">
+                <svg class="loading-spinner" viewBox="0 0 50 50">
+                    <use href="icons.svg#spinner"></use>
+                </svg>
+                <p>Cargando vista previa...</p>
+            </div>
+            <iframe class="preview-frame" id="previewFrame" src="about:blank"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <div class="contact-info">
+            ¿Tienes dudas? Contáctanos en: 
+            <a href="mailto:koopages.soporte@gmail.com" class="contact-link">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <use href="icons.svg#email"></use>
+                </svg>
+                koopages.soporte@gmail.com
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
