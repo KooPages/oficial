@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KooPages - Directorio</title>
-    <meta name="description" content="Directorio profesional de las principales plataformas digitales con sistema de vista previa integrado">
-    <meta name="keywords" content="directorio web, plataformas digitales, vista previa, herramientas online">
+    <meta name="description" content="Directorio profesional de plataformas digitales">
+    <meta name="keywords" content="directorio web, plataformas digitales, vista previa">
     <link rel="stylesheet" href="styles.css">
     <link rel="sitemap" type="application/xml" href="sitemap.xml">
     <link rel="icon" type="image/jpeg" href="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -44,18 +42,15 @@
         <main class="main-content">
             <section class="platforms-section">
                 <div class="section-header">
-                    <h2 class="section-title">Plataformas Disponibles</h2>
+                    <h2 class="section-title">NEGOCIOS</h2>
                     <p class="section-description">Acceda a los negocios patrocinados por KOOWEXA</p>
                 </div>
                 
-                <div class="websites-grid" id="websitesGrid">
-                    <!-- Los sitios web se cargarán aquí dinámicamente -->
-                </div>
+                <div class="websites-grid" id="websitesGrid"></div>
             </section>
         </main>
     </div>
 
-    <!-- Modal de Vista Previa -->
     <div class="preview-modal" id="previewModal">
         <div class="preview-content">
             <div class="preview-header">
@@ -89,39 +84,9 @@
             </div>
             <iframe class="preview-frame" id="previewFrame" src="about:blank" 
                     title="Vista previa de plataforma" 
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation"></iframe>
         </div>
     </div>
-
-    <footer class="corporate-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg" 
-                         alt="KooPages" 
-                         class="footer-logo-image">
-                    <span class="footer-brand">KooPages</span>
-                </div>
-                <p class="footer-description">Directorio corporativo profesional de plataformas digitales</p>
-            </div>
-            
-            <div class="footer-section">
-                <h4 class="footer-title">Soporte</h4>
-                <div class="contact-info">
-                    <a href="mailto:koopages.soporte@gmail.com" class="contact-link">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <use href="icons.svg#email"></use>
-                        </svg>
-                        koopages.soporte@gmail.com
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 KooPages. Todos los derechos reservados.</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>

@@ -1,50 +1,42 @@
-// Lista de sitios web actualizada
 const websites = [
     {
-        name: "Google",
-        url: "https://www.google.com",
-        description: "Motor de búsqueda líder mundial con tecnología de inteligencia artificial integrada.",
+        name: "TIENDA IYAWO",
+        url: "https://spoo.me/sv1",
         previewColor: "#4285F4",
-        icon: "google"
+        icon: "https://via.placeholder.com/48/4285F4/FFFFFF?text=I"
     },
     {
-        name: "YouTube",
-        url: "https://www.youtube.com",
-        description: "Plataforma de video líder global con contenido diverso y herramientas para creadores.",
+        name: "ALY SALON",
+        url: "https://spoo.me/sv2",
         previewColor: "#FF0000",
-        icon: "youtube"
+        icon: "https://via.placeholder.com/48/FF0000/FFFFFF?text=A"
     },
     {
-        name: "Wikipedia",
-        url: "https://www.wikipedia.org",
-        description: "Enciclopedia digital colaborativa más grande del mundo, de acceso libre.",
+        name: "TIENDA DE TODO UN POCO",
+        url: "https://spoo.me/sv3",
         previewColor: "#636466",
-        icon: "wikipedia"
+        icon: "https://via.placeholder.com/48/636466/FFFFFF?text=T"
     },
     {
-        name: "GitHub",
-        url: "https://github.com",
-        description: "Plataforma de desarrollo colaborativo para el control de versiones y colaboración.",
+        name: "CARNICOS HABANA",
+        url: "https://spoo.me/sv4",
         previewColor: "#24292e",
-        icon: "github"
+        icon: "https://via.placeholder.com/48/24292e/FFFFFF?text=C"
     },
     {
-        name: "Twitter",
-        url: "https://twitter.com",
-        description: "Red social de microblogging para conversaciones en tiempo real y noticias.",
+        name: "SURI NAILS",
+        url: "https://spoo.me/sv5",
         previewColor: "#1DA1F2",
-        icon: "twitter"
+        icon: "https://via.placeholder.com/48/1DA1F2/FFFFFF?text=S"
     },
     {
-        name: "Netflix",
-        url: "https://www.netflix.com",
-        description: "Servicio de streaming líder con contenido original y licenciado globalmente.",
+        name: "TIENDA DE ELECTRODOMESTICOS",
+        url: "https://spoo.me/sv6",
         previewColor: "#E50914",
-        icon: "netflix"
+        icon: "https://via.placeholder.com/48/E50914/FFFFFF?text=E"
     },
 ];
 
-// Elementos del DOM
 const websitesGrid = document.getElementById('websitesGrid');
 const previewModal = document.getElementById('previewModal');
 const previewFrame = document.getElementById('previewFrame');
@@ -54,11 +46,9 @@ const refreshPreview = document.getElementById('refreshPreview');
 const openExternal = document.getElementById('openExternal');
 const previewLoading = document.getElementById('previewLoading');
 
-// Variables de estado
 let currentSite = null;
 let isModalOpen = false;
 
-// Cargar los sitios web en la cuadrícula
 function loadWebsites() {
     websitesGrid.innerHTML = '';
     
@@ -71,18 +61,13 @@ function loadWebsites() {
         
         card.innerHTML = `
             <div class="website-preview" style="background: linear-gradient(135deg, ${site.previewColor} 0%, ${darkenColor(site.previewColor, 20)} 100%);">
-                <svg class="website-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <use href="icons.svg#${site.icon}"></use>
-                </svg>
+                <img src="${site.icon}" alt="${site.name}" class="website-icon" />
             </div>
             <div class="website-info">
                 <h3 class="website-name">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <use href="icons.svg#${site.icon}"></use>
-                    </svg>
+                    <img src="${site.icon}" alt="${site.name}" style="width: 20px; height: 20px;" />
                     ${site.name}
                 </h3>
-                <p class="website-description">${site.description}</p>
                 <div class="card-actions">
                     <button class="website-link preview-trigger" data-site="${site.name}">
                         <svg class="icon" viewBox="0 0 24 24">
@@ -90,7 +75,7 @@ function loadWebsites() {
                         </svg>
                         Vista Previa
                     </button>
-                    <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="website-link external-link">
+                    <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="website-link external-link" onclick="protectLink(event, '${site.url}')">
                         <svg class="icon" viewBox="0 0 24 24">
                             <use href="icons.svg#external"></use>
                         </svg>
@@ -100,11 +85,9 @@ function loadWebsites() {
             </div>
         `;
         
-        // Eventos para la tarjeta
         const previewTrigger = card.querySelector('.preview-trigger');
         const externalLink = card.querySelector('.external-link');
         
-        // Vista previa al hacer clic en el botón o en la tarjeta
         previewTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             showPreview(site);
@@ -114,7 +97,6 @@ function loadWebsites() {
             showPreview(site);
         });
         
-        // Navegación con teclado
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -122,7 +104,6 @@ function loadWebsites() {
             }
         });
         
-        // Prevenir la apertura del preview cuando se hace clic en el enlace externo
         externalLink.addEventListener('click', (e) => {
             e.stopPropagation();
         });
@@ -131,7 +112,6 @@ function loadWebsites() {
     });
 }
 
-// Función para oscurecer colores (para gradientes)
 function darkenColor(color, percent) {
     const num = parseInt(color.replace("#", ""), 16);
     const amt = Math.round(2.55 * percent);
@@ -146,8 +126,12 @@ function darkenColor(color, percent) {
     ).toString(16).slice(1);
 }
 
-// Mostrar vista previa del sitio
 function showPreview(site) {
+    if (!validateUrl(site.url)) {
+        alert('Enlace no válido');
+        return;
+    }
+    
     currentSite = site;
     isModalOpen = true;
     
@@ -156,33 +140,28 @@ function showPreview(site) {
     previewLoading.style.display = 'flex';
     previewFrame.style.display = 'none';
     
-    // Prevenir scroll del body cuando el modal está abierto
     document.body.style.overflow = 'hidden';
     
-    // Cargar la URL en el iframe con timeout
     const loadTimeout = setTimeout(() => {
         if (previewLoading.style.display !== 'none') {
             handlePreviewError();
         }
-    }, 10000); // 10 segundos timeout
+    }, 15000);
     
     previewFrame.src = site.url;
     
-    // Mostrar el iframe cuando se cargue
     previewFrame.onload = () => {
         clearTimeout(loadTimeout);
         previewLoading.style.display = 'none';
         previewFrame.style.display = 'block';
     };
     
-    // Manejar errores de carga
     previewFrame.onerror = () => {
         clearTimeout(loadTimeout);
         handlePreviewError();
     };
 }
 
-// Manejar errores de vista previa
 function handlePreviewError() {
     previewLoading.innerHTML = `
         <svg class="icon" viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: #e53e3e; margin-bottom: 1rem;">
@@ -201,7 +180,6 @@ function handlePreviewError() {
     `;
 }
 
-// Actualizar vista previa
 function refreshPreviewFrame() {
     if (currentSite) {
         previewLoading.style.display = 'flex';
@@ -210,47 +188,63 @@ function refreshPreviewFrame() {
     }
 }
 
-// Abrir sitio en nueva pestaña
 function openSiteInNewTab() {
     if (currentSite) {
         window.open(currentSite.url, '_blank', 'noopener,noreferrer');
     }
 }
 
-// Cerrar vista previa
 function closePreviewModal() {
     previewModal.style.display = 'none';
     previewFrame.src = 'about:blank';
     currentSite = null;
     isModalOpen = false;
-    
-    // Restaurar scroll del body
     document.body.style.overflow = '';
 }
 
-// Event listeners
+function protectLink(event, url) {
+    if (!validateUrl(url)) {
+        event.preventDefault();
+        alert('Enlace no válido');
+        return false;
+    }
+    
+    const confirmed = confirm(`¿Está seguro de que desea visitar:\n${url}?`);
+    if (!confirmed) {
+        event.preventDefault();
+        return false;
+    }
+    
+    return true;
+}
+
+function validateUrl(url) {
+    try {
+        const urlObj = new URL(url);
+        return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
 closePreview.addEventListener('click', closePreviewModal);
 refreshPreview.addEventListener('click', refreshPreviewFrame);
 openExternal.addEventListener('click', openSiteInNewTab);
 
-// Cerrar modal al hacer clic fuera del contenido
 previewModal.addEventListener('click', (e) => {
     if (e.target === previewModal) {
         closePreviewModal();
     }
 });
 
-// Cerrar con tecla Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isModalOpen) {
         closePreviewModal();
     }
 });
 
-// Mejorar el manejo de redimensionamiento
 window.addEventListener('resize', () => {
     if (isModalOpen) {
-        // Ajustar el modal si es necesario
         const previewContent = document.querySelector('.preview-content');
         if (previewContent) {
             previewContent.style.maxHeight = `${window.innerHeight * 0.9}px`;
@@ -258,17 +252,14 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
     loadWebsites();
     
-    // Añadir clase loaded para transiciones suaves después de la carga
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
 });
 
-// Service Worker para caché (opcional)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
