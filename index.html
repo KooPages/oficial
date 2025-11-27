@@ -3,97 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KooPages - WEBSITE</title>
-    <meta name="description" content="Directorio profesional de plataformas digitales patrocinadas por KOOWEXA">
-    <meta name="keywords" content="directorio web, plataformas digitales, vista previa, negocios, KOOWEXA">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="KOOPAGES - Plataforma de negocios patrocinados por KOOWEXA">
+    <meta name="keywords" content="negocios, patrocinio, KOOWEXA, servicios profesionales, tiendas en línea">
+    <meta name="author" content="KOOPAGES">
+    <title>KOOPAGES - Plataforma de Negocios</title>
     <link rel="stylesheet" href="styles-lite.css">
-    <link rel="preload" href="icons.svg" as="image" type="image/svg+xml">
-    <link rel="sitemap" type="application/xml" href="sitemap.xml">
-    <link rel="icon" type="image/jpeg" href="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="corporate-header">
-            <div class="header-content">
-                <div class="brand-section">
-                    <div class="logo-container">
-                        <img src="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg" 
-                             alt="KooPages Logo" 
-                             class="logo-image"
-                             width="60" height="60">
-                        <div class="brand-text">
-                            <h1 class="logo">KooPages</h1>
-                            <p class="corporate-tagline">Directorio de negocios</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">6</span>
-                        <span class="stat-label">Plataformas</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Funcional</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <main class="main-content">
-            <section class="platforms-section">
-                <div class="section-header">
-                    <h2 class="section-title">NEGOCIOS</h2>
-                    <p class="section-description">Acceda a los negocios patrocinados por KOOWEXA</p>
-                </div>
-                
-                <div class="websites-grid" id="websitesGrid" aria-live="polite">
-                    <!-- Contenido cargado dinámicamente -->
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <div class="preview-modal" id="previewModal" aria-hidden="true" role="dialog" aria-labelledby="previewTitle">
-        <div class="preview-content">
-            <div class="preview-header">
-                <div class="preview-title-container">
-                    <h3 class="preview-title" id="previewTitle">Vista Previa</h3>
-                    <span class="preview-subtitle">Navegación segura integrada</span>
-                </div>
-                <div class="preview-controls">
-                    <button class="preview-btn tooltip" id="refreshPreview" title="Actualizar vista previa" aria-label="Actualizar vista previa">
-                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <use href="icons.svg#refresh"></use>
-                        </svg>
-                    </button>
-                    <button class="preview-btn tooltip" id="openExternal" title="Abrir en nueva pestaña" aria-label="Abrir en nueva pestaña">
-                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <use href="icons.svg#external"></use>
-                        </svg>
-                    </button>
-                    <button class="close-preview tooltip" id="closePreview" title="Cerrar vista previa" aria-label="Cerrar vista previa">
-                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <use href="icons.svg#close"></use>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="preview-loading" id="previewLoading">
-                <svg class="loading-spinner" viewBox="0 0 50 50" aria-hidden="true">
-                    <use href="icons.svg#spinner"></use>
+    <header class="header" role="banner">
+        <div class="container">
+            <a href="#inicio" class="logo" aria-label="KOOPAGES - Inicio">
+                <svg class="icon" width="32" height="32" aria-hidden="true">
+                    <use xlink:href="icons.svg#logo"></use>
                 </svg>
-                <span class="loading-subtext">Cargando contenido de la plataforma</span>
-            </div>
-            <iframe class="preview-frame" id="previewFrame" src="about:blank" 
-                    title="Vista previa de plataforma" 
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-                    loading="lazy"></iframe>
+                <h1>KOOPAGES</h1>
+            </a>
+            <nav class="nav" role="navigation" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="#inicio" class="nav-link active" aria-current="page">Inicio</a></li>
+                    <li><a href="#negocios" class="nav-link">Negocios</a></li>
+                    <li><a href="#info" class="nav-link">Información</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+                <svg class="icon" width="24" height="24" aria-hidden="true">
+                    <use xlink:href="icons.svg#menu"></use>
+                </svg>
+            </button>
         </div>
-    </div>
+    </header>
 
-    <script src="script.js" defer></script>
+    <main class="main" role="main">
+        <section id="inicio" class="section active" aria-labelledby="inicio-heading">
+            <div class="container">
+                <h2 id="inicio-heading">Bienvenido a KOOPAGES</h2>
+                <p class="lead">Descubre todos los negocios patrocinados por KOOWEXA en nuestra plataforma exclusiva.</p>
+                <div class="features">
+                    <div class="feature-card">
+                        <svg class="icon" width="48" height="48" aria-hidden="true">
+                            <use xlink:href="icons.svg#feature1"></use>
+                        </svg>
+                        <h3>Servicios Profesionales</h3>
+                        <p>Accede a servicios de alta calidad respaldados por KOOWEXA</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="icon" width="48" height="48" aria-hidden="true">
+                            <use xlink:href="icons.svg#feature2"></use>
+                        </svg>
+                        <h3>Tiendas en Línea</h3>
+                        <p>Explora comercios digitales con los mejores estándares</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="icon" width="48" height="48" aria-hidden="true">
+                            <use xlink:href="icons.svg#feature3"></use>
+                        </svg>
+                        <h3>Patrocinio Verificado</h3>
+                        <p>Negocios certificados y respaldados por KOOWEXA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="negocios" class="section" aria-labelledby="negocios-heading">
+            <div class="container">
+                <h2 id="negocios-heading">Negocios Destacados</h2>
+                <div class="search-bar">
+                    <label for="searchInput" class="sr-only">Buscar negocios</label>
+                    <input type="text" id="searchInput" placeholder="Buscar negocios por nombre o descripción...">
+                    <svg class="icon" width="20" height="20" aria-hidden="true">
+                        <use xlink:href="icons.svg#search"></use>
+                    </svg>
+                </div>
+                <div class="webs-container" id="websContainer" role="list" aria-label="Lista de negocios">
+                    <!-- Las webs se cargarán dinámicamente desde webs.js -->
+                </div>
+            </div>
+        </section>
+
+        <section id="info" class="section" aria-labelledby="info-heading">
+            <div class="container">
+                <h2 id="info-heading">Información</h2>
+                <p class="lead">KOOPAGES está asociada a servicios de KOOWEXA para patrocinar y promover negocios seleccionados con herramientas especializadas.</p>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <h3>Visibilidad Digital</h3>
+                        <p>Ampliamos la presencia en internet de negocios seleccionados con estrategias efectivas</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Apoyo Integral</h3>
+                        <p>Proporcionamos herramientas especializadas para el crecimiento de cada negocio</p>
+                    </div>
+                    <div class="tech-item">
+                        <h3>Certificación KOOWEXA</h3>
+                        <p>Garantía de calidad y confiabilidad en todos los negocios patrocinados</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; 2025 KOOPAGES - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="webs.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

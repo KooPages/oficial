@@ -1,347 +1,373 @@
-class KooPagesApp {
-    constructor() {
-        this.websites = [
-            {
-                name: "TIENDA IYAWO",
-                url: "https://spoo.me/sv1",
-                previewColor: "#4285F4",
-                icon: "https://via.placeholder.com/48/4285F4/FFFFFF?text=I"
-            },
-            {
-                name: "ALY SALON",
-                url: "https://spoo.me/sv2",
-                previewColor: "#FF0000",
-                icon: "https://via.placeholder.com/48/FF0000/FFFFFF?text=A"
-            },
-            {
-                name: "TIENDA DE TODO UN POCO",
-                url: "https://spoo.me/sv3",
-                previewColor: "#636466",
-                icon: "https://via.placeholder.com/48/636466/FFFFFF?text=T"
-            },
-            {
-                name: "CARNICOS HABANA",
-                url: "https://spoo.me/sv4",
-                previewColor: "#24292e",
-                icon: "https://via.placeholder.com/48/24292e/FFFFFF?text=C"
-            },
-            {
-                name: "SURI NAILS",
-                url: "https://spoo.me/sv5",
-                previewColor: "#1DA1F2",
-                icon: "https://via.placeholder.com/48/1DA1F2/FFFFFF?text=S"
-            },
-            {
-                name: "TIENDA DE ELECTRODOMESTICOS",
-                url: "https://spoo.me/sv6",
-                previewColor: "#E50914",
-                icon: "https://via.placeholder.com/48/E50914/FFFFFF?text=E"
-            },
-        ];
+// Funciones principales optimizadas de la plataforma KOOPAGES
 
-        this.currentSite = null;
-        this.isModalOpen = false;
-        this.cache = new Map();
-        
-        this.init();
-    }
-
-    init() {
-        this.websitesGrid = document.getElementById('websitesGrid');
-        this.previewModal = document.getElementById('previewModal');
-        this.previewFrame = document.getElementById('previewFrame');
-        this.previewTitle = document.getElementById('previewTitle');
-        this.closePreview = document.getElementById('closePreview');
-        this.refreshPreview = document.getElementById('refreshPreview');
-        this.openExternal = document.getElementById('openExternal');
-        this.previewLoading = document.getElementById('previewLoading');
-
-        this.bindEvents();
-        this.loadWebsites();
-        this.initServiceWorker();
-    }
-
-    bindEvents() {
-        this.closePreview.addEventListener('click', () => this.closePreviewModal());
-        this.refreshPreview.addEventListener('click', () => this.refreshPreviewFrame());
-        this.openExternal.addEventListener('click', () => this.openSiteInNewTab());
-
-        this.previewModal.addEventListener('click', (e) => {
-            if (e.target === this.previewModal) {
-                this.closePreviewModal();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isModalOpen) {
-                this.closePreviewModal();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            if (this.isModalOpen) {
-                this.adjustPreviewSize();
-            }
-        });
-    }
-
-    loadWebsites() {
-        this.websitesGrid.innerHTML = '';
-        
-        this.websites.forEach(site => {
-            const card = this.createWebsiteCard(site);
-            this.websitesGrid.appendChild(card);
-        });
-
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 100);
-    }
-
-    createWebsiteCard(site) {
-        const card = document.createElement('div');
-        card.className = 'website-card';
-        card.setAttribute('role', 'button');
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('aria-label', `Abrir vista previa de ${site.name}`);
-        
-        card.innerHTML = `
-            <div class="website-preview" style="background: linear-gradient(135deg, ${site.previewColor} 0%, ${this.darkenColor(site.previewColor, 20)} 100%);">
-                <img src="${site.icon}" alt="${site.name}" class="website-icon" loading="lazy" />
-            </div>
-            <div class="website-info">
-                <h3 class="website-name">
-                    <img src="${site.icon}" alt="${site.name}" style="width: 20px; height: 20px;" loading="lazy" />
-                    ${site.name}
-                </h3>
-                <div class="card-actions">
-                    <button class="website-link preview-trigger" data-site="${site.name}">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <use href="icons.svg#external"></use>
-                        </svg>
-                        Vista Previa
-                    </button>
-                    <a href="${site.url}" target="_blank" rel="noopener noreferrer" class="website-link external-link">
-                        <svg class="icon" viewBox="0 0 24 24">
-                            <use href="icons.svg#external"></use>
-                        </svg>
-                        Visitar Sitio
-                    </a>
-                </div>
-            </div>
-        `;
-        
-        this.bindCardEvents(card, site);
-        return card;
-    }
-
-    bindCardEvents(card, site) {
-        const previewTrigger = card.querySelector('.preview-trigger');
-        const externalLink = card.querySelector('.external-link');
-        
-        previewTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.showPreview(site);
-        });
-        
-        card.addEventListener('click', () => {
-            this.showPreview(site);
-        });
-        
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.showPreview(site);
-            }
-        });
-        
-        externalLink.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!this.protectLink(site.url)) {
-                e.preventDefault();
-            }
-        });
-    }
-
-    darkenColor(color, percent) {
-        const num = parseInt(color.replace("#", ""), 16);
-        const amt = Math.round(2.55 * percent);
-        const R = (num >> 16) - amt;
-        const G = (num >> 8 & 0x00FF) - amt;
-        const B = (num & 0x0000FF) - amt;
-        return "#" + (
-            0x1000000 +
-            (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-            (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-            (B < 255 ? B < 1 ? 0 : B : 255)
-        ).toString(16).slice(1);
-    }
-
-    showPreview(site) {
-        if (!this.validateUrl(site.url)) {
-            this.showError('Enlace no válido');
-            return;
-        }
-        
-        this.currentSite = site;
-        this.isModalOpen = true;
-        
-        this.previewTitle.textContent = `Vista Previa: ${site.name}`;
-        this.previewModal.style.display = 'flex';
-        this.previewModal.setAttribute('aria-hidden', 'false');
-        this.previewLoading.style.display = 'flex';
-        this.previewFrame.style.display = 'none';
-        
-        document.body.style.overflow = 'hidden';
-        
-        this.loadPreview(site.url);
-    }
-
-    async loadPreview(url) {
-        const cacheKey = `preview-${btoa(url)}`;
-        
-        if (this.cache.has(cacheKey)) {
-            this.displayCachedPreview(this.cache.get(cacheKey));
-            return;
-        }
-
-        const loadTimeout = setTimeout(() => {
-            this.handlePreviewError();
-        }, 15000);
-        
-        try {
-            this.previewFrame.src = url;
+// Navegación entre secciones
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos de navegación
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.section');
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.nav');
+    
+    // Navegación por secciones
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            this.previewFrame.onload = () => {
-                clearTimeout(loadTimeout);
-                this.previewLoading.style.display = 'none';
-                this.previewFrame.style.display = 'block';
-                this.cache.set(cacheKey, { loaded: true, timestamp: Date.now() });
-            };
+            // Obtener el ID de la sección objetivo
+            const targetId = this.getAttribute('href').substring(1);
             
-            this.previewFrame.onerror = () => {
-                clearTimeout(loadTimeout);
-                this.handlePreviewError();
-            };
-        } catch (error) {
-            console.error('Error loading preview:', error);
-            this.handlePreviewError();
-        }
-    }
-
-    displayCachedPreview(cacheData) {
-        this.previewLoading.style.display = 'none';
-        this.previewFrame.style.display = 'block';
-    }
-
-    handlePreviewError() {
-        this.previewLoading.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24" style="width: 64px; height: 64px; fill: #e53e3e; margin-bottom: 1rem;">
-                <use href="icons.svg#error"></use>
-            </svg>
-            <h3 style="color: #2d3748; margin-bottom: 0.5rem;">No se pudo cargar la vista previa</h3>
-            <p style="color: #718096; text-align: center; margin-bottom: 1.5rem;">
-                El sitio puede tener restricciones de seguridad que impiden la visualización integrada.
-            </p>
-            <button class="website-link" onclick="app.openSiteInNewTab()" style="margin: 0 auto;">
-                <svg class="icon" viewBox="0 0 24 24">
-                    <use href="icons.svg#external"></use>
-                </svg>
-                Abrir en nueva pestaña
-            </button>
-        `;
-    }
-
-    refreshPreviewFrame() {
-        if (this.currentSite) {
-            const cacheKey = `preview-${btoa(this.currentSite.url)}`;
-            this.cache.delete(cacheKey);
+            // Actualizar navegación activa
+            navLinks.forEach(l => {
+                l.classList.remove('active');
+                l.removeAttribute('aria-current');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-current', 'page');
             
-            this.previewLoading.style.display = 'flex';
-            this.previewFrame.style.display = 'none';
-            this.previewFrame.src = this.currentSite.url;
-        }
-    }
-
-    openSiteInNewTab() {
-        if (this.currentSite && this.validateUrl(this.currentSite.url)) {
-            window.open(this.currentSite.url, '_blank', 'noopener,noreferrer');
-        }
-    }
-
-    closePreviewModal() {
-        this.previewModal.style.display = 'none';
-        this.previewModal.setAttribute('aria-hidden', 'true');
-        this.previewFrame.src = 'about:blank';
-        this.currentSite = null;
-        this.isModalOpen = false;
-        document.body.style.overflow = '';
-    }
-
-    protectLink(url) {
-        if (!this.validateUrl(url)) {
-            this.showError('Enlace no válido');
-            return false;
-        }
+            // Mostrar sección correspondiente
+            sections.forEach(section => {
+                section.classList.remove('active');
+                section.setAttribute('aria-hidden', 'true');
+                if (section.id === targetId) {
+                    section.classList.add('active');
+                    section.setAttribute('aria-hidden', 'false');
+                    
+                    // Enfocar el heading de la sección para accesibilidad
+                    const heading = section.querySelector('h2');
+                    if (heading) {
+                        heading.setAttribute('tabindex', '-1');
+                        heading.focus();
+                    }
+                }
+            });
+            
+            // Cerrar menú móvil si está abierto
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+            
+            // Actualizar URL sin recargar la página
+            history.pushState(null, null, `#${targetId}`);
+        });
+    });
+    
+    // Toggle del menú móvil
+    menuToggle.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        nav.classList.toggle('active');
         
-        const confirmed = confirm(`¿Está seguro de que desea visitar:\n${url}?`);
-        return confirmed;
-    }
-
-    validateUrl(url) {
-        try {
-            const urlObj = new URL(url);
-            return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
-        } catch {
-            return false;
+        // Enfocar el primer enlace del menú cuando se abre
+        if (!isExpanded) {
+            const firstNavLink = nav.querySelector('.nav-link');
+            if (firstNavLink) {
+                setTimeout(() => firstNavLink.focus(), 100);
+            }
         }
-    }
-
-    adjustPreviewSize() {
-        const previewContent = document.querySelector('.preview-content');
-        if (previewContent) {
-            previewContent.style.maxHeight = `${window.innerHeight * 0.9}px`;
+    });
+    
+    // Cerrar menú al hacer clic fuera de él
+    document.addEventListener('click', function(e) {
+        if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
         }
-    }
-
-    showError(message) {
-        // Implementación básica de notificación de error
-        const errorDiv = document.createElement('div');
-        errorDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #e53e3e;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            z-index: 10000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        `;
-        errorDiv.textContent = message;
-        document.body.appendChild(errorDiv);
+    });
+    
+    // Cerrar menú con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.focus();
+        }
+    });
+    
+    // Funcionalidad de búsqueda con debounce
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        let searchTimeout;
         
-        setTimeout(() => {
-            document.body.removeChild(errorDiv);
-        }, 3000);
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const searchTerm = this.value.trim().toLowerCase();
+                filterWebs(searchTerm);
+            }, 300);
+        });
+        
+        // Limpiar búsqueda con Escape
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && this.value) {
+                this.value = '';
+                filterWebs('');
+                this.focus();
+            }
+        });
     }
+    
+    // Cargar webs desde webs.js
+    if (typeof webs !== 'undefined') {
+        loadWebs(webs);
+    }
+    
+    // Manejar navegación con botones de retroceso/avance
+    window.addEventListener('popstate', function() {
+        const hash = window.location.hash.substring(1) || 'inicio';
+        const targetLink = document.querySelector(`.nav-link[href="#${hash}"]`);
+        
+        if (targetLink) {
+            targetLink.click();
+        }
+    });
+    
+    // Scroll suave para anclas
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
 
-    initServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
+// Función para filtrar webs
+function filterWebs(searchTerm) {
+    const webCards = document.querySelectorAll('.web-card');
+    let visibleCount = 0;
+    
+    webCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const category = card.getAttribute('data-category') || '';
+        
+        if (searchTerm === '' || 
+            title.includes(searchTerm) || 
+            description.includes(searchTerm) ||
+            category.includes(searchTerm)) {
+            card.style.display = 'block';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Mostrar mensaje si no hay resultados
+    const container = document.getElementById('websContainer');
+    let noResultsMsg = container.querySelector('.no-results');
+    
+    if (visibleCount === 0 && searchTerm !== '') {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.innerHTML = `
+                <p>No se encontraron negocios que coincidan con "<strong>${searchTerm}</strong>"</p>
+                <button id="clearSearch" class="web-card-link">Limpiar búsqueda</button>
+            `;
+            container.appendChild(noResultsMsg);
+            
+            // Agregar evento al botón de limpiar
+            document.getElementById('clearSearch').addEventListener('click', function() {
+                document.getElementById('searchInput').value = '';
+                filterWebs('');
             });
         }
+    } else if (noResultsMsg) {
+        noResultsMsg.remove();
     }
 }
 
-// Inicializar la aplicación cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    window.app = new KooPagesApp();
-});
+// Función para cargar las webs en el contenedor
+function loadWebs(websArray) {
+    const container = document.getElementById('websContainer');
+    
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    if (websArray.length === 0) {
+        container.innerHTML = '<p class="no-webs">No hay negocios disponibles en este momento.</p>';
+        return;
+    }
+    
+    websArray.forEach((web, index) => {
+        const webCard = document.createElement('div');
+        webCard.className = 'web-card';
+        webCard.setAttribute('role', 'listitem');
+        webCard.setAttribute('data-category', web.category);
+        
+        webCard.innerHTML = `
+            <img src="${web.image}" alt="${web.title} - Vista previa" loading="lazy">
+            <div class="web-card-content">
+                <h3>${web.title}</h3>
+                <p>${web.description}</p>
+                <a href="${web.url}" class="web-card-link" target="_blank" rel="noopener noreferrer">
+                    Visitar sitio
+                    <svg class="icon" width="16" height="16" aria-hidden="true">
+                        <use xlink:href="icons.svg#external-link"></use>
+                    </svg>
+                </a>
+            </div>
+        `;
+        
+        container.appendChild(webCard);
+    });
+}
+
+// Función para agregar una nueva web al listado
+function addWeb(title, description, url, image, category = 'general') {
+    if (typeof webs === 'undefined') return;
+    
+    const newWeb = {
+        title,
+        description,
+        url,
+        image,
+        category
+    };
+    
+    webs.push(newWeb);
+    loadWebs(webs);
+    showNotification(`"${title}" ha sido agregado correctamente`, 'success');
+}
+
+// Función para filtrar webs por categoría
+function filterWebsByCategory(category) {
+    if (typeof webs === 'undefined') return;
+    
+    const filteredWebs = category === 'all' 
+        ? webs 
+        : webs.filter(web => web.category === category);
+    
+    loadWebs(filteredWebs);
+    
+    // Actualizar interfaz para mostrar categoría activa
+    document.querySelectorAll('.category-filter').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-category') === category) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+// Función para mostrar notificaciones
+function showNotification(message, type = 'info') {
+    // Crear elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.setAttribute('role', 'alert');
+    notification.setAttribute('aria-live', 'polite');
+    
+    // Icono según el tipo
+    let icon = '';
+    switch(type) {
+        case 'success':
+            icon = '<svg class="icon" width="20" height="20" aria-hidden="true"><use xlink:href="icons.svg#feature1"></use></svg>';
+            break;
+        case 'error':
+            icon = '<svg class="icon" width="20" height="20" aria-hidden="true"><use xlink:href="icons.svg#close"></use></svg>';
+            break;
+        default:
+            icon = '<svg class="icon" width="20" height="20" aria-hidden="true"><use xlink:href="icons.svg#feature2"></use></svg>';
+    }
+    
+    notification.innerHTML = `
+        ${icon}
+        <span>${message}</span>
+        <button class="notification-close" aria-label="Cerrar notificación">
+            <svg class="icon" width="16" height="16" aria-hidden="true">
+                <use xlink:href="icons.svg#close"></use>
+            </svg>
+        </button>
+    `;
+    
+    // Estilos para la notificación
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.25rem;
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+        color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow-lg);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        max-width: 400px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animación de entrada
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Botón de cerrar
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+        closeNotification(notification);
+    });
+    
+    // Auto-eliminar después de 5 segundos
+    const autoClose = setTimeout(() => {
+        closeNotification(notification);
+    }, 5000);
+    
+    // Función para cerrar notificación
+    function closeNotification(notif) {
+        clearTimeout(autoClose);
+        notif.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notif.parentNode) {
+                notif.parentNode.removeChild(notif);
+            }
+        }, 300);
+    }
+}
+
+// Utilidad para clase de solo lectura (accesibilidad)
+const style = document.createElement('style');
+style.textContent = `
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+    
+    .no-results {
+        text-align: center;
+        padding: 3rem 2rem;
+        grid-column: 1 / -1;
+    }
+    
+    .no-results p {
+        margin-bottom: 1.5rem;
+        font-size: 1.125rem;
+    }
+    
+    .no-webs {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--text-light);
+        font-size: 1.125rem;
+        grid-column: 1 / -1;
+    }
+`;
+document.head.appendChild(style);
