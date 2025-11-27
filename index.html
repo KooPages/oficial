@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KooPages - Directorio</title>
-    <meta name="description" content="Directorio profesional de plataformas digitales">
-    <meta name="keywords" content="directorio web, plataformas digitales, vista previa">
-    <link rel="stylesheet" href="styles.css">
+    <title>KooPages - WEBSITE</title>
+    <meta name="description" content="Directorio profesional de plataformas digitales patrocinadas por KOOWEXA">
+    <meta name="keywords" content="directorio web, plataformas digitales, vista previa, negocios, KOOWEXA">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="styles-lite.css">
+    <link rel="preload" href="icons.svg" as="image" type="image/svg+xml">
     <link rel="sitemap" type="application/xml" href="sitemap.xml">
     <link rel="icon" type="image/jpeg" href="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +21,8 @@
                     <div class="logo-container">
                         <img src="https://github.com/KooPages/oficial/raw/refs/heads/main/KOOPAGES.jpeg" 
                              alt="KooPages Logo" 
-                             class="logo-image">
+                             class="logo-image"
+                             width="60" height="60">
                         <div class="brand-text">
                             <h1 class="logo">KooPages</h1>
                             <p class="corporate-tagline">Directorio de negocios</p>
@@ -46,12 +49,14 @@
                     <p class="section-description">Acceda a los negocios patrocinados por KOOWEXA</p>
                 </div>
                 
-                <div class="websites-grid" id="websitesGrid"></div>
+                <div class="websites-grid" id="websitesGrid" aria-live="polite">
+                    <!-- Contenido cargado dinámicamente -->
+                </div>
             </section>
         </main>
     </div>
 
-    <div class="preview-modal" id="previewModal">
+    <div class="preview-modal" id="previewModal" aria-hidden="true" role="dialog" aria-labelledby="previewTitle">
         <div class="preview-content">
             <div class="preview-header">
                 <div class="preview-title-container">
@@ -59,35 +64,36 @@
                     <span class="preview-subtitle">Navegación segura integrada</span>
                 </div>
                 <div class="preview-controls">
-                    <button class="preview-btn tooltip" id="refreshPreview" title="Actualizar vista previa">
-                        <svg class="icon" viewBox="0 0 24 24">
+                    <button class="preview-btn tooltip" id="refreshPreview" title="Actualizar vista previa" aria-label="Actualizar vista previa">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                             <use href="icons.svg#refresh"></use>
                         </svg>
                     </button>
-                    <button class="preview-btn tooltip" id="openExternal" title="Abrir en nueva pestaña">
-                        <svg class="icon" viewBox="0 0 24 24">
+                    <button class="preview-btn tooltip" id="openExternal" title="Abrir en nueva pestaña" aria-label="Abrir en nueva pestaña">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                             <use href="icons.svg#external"></use>
                         </svg>
                     </button>
-                    <button class="close-preview tooltip" id="closePreview" title="Cerrar vista previa">
-                        <svg class="icon" viewBox="0 0 24 24">
+                    <button class="close-preview tooltip" id="closePreview" title="Cerrar vista previa" aria-label="Cerrar vista previa">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                             <use href="icons.svg#close"></use>
                         </svg>
                     </button>
                 </div>
             </div>
             <div class="preview-loading" id="previewLoading">
-                <svg class="loading-spinner" viewBox="0 0 50 50">
+                <svg class="loading-spinner" viewBox="0 0 50 50" aria-hidden="true">
                     <use href="icons.svg#spinner"></use>
                 </svg>
                 <span class="loading-subtext">Cargando contenido de la plataforma</span>
             </div>
             <iframe class="preview-frame" id="previewFrame" src="about:blank" 
                     title="Vista previa de plataforma" 
-                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation"></iframe>
+                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+                    loading="lazy"></iframe>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
