@@ -105,6 +105,14 @@ p {
     font-weight: 800;
 }
 
+.logo .logo-img {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
 .nav ul {
     display: flex;
     list-style: none;

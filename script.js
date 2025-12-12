@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeApp() {
     // Elementos de navegación
+    // Elementos de navegación
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const menuToggle = document.getElementById('menuToggle');
@@ -43,11 +44,105 @@ function initializeApp() {
     initWebs();
     initBrowserHistory();
     initAccessibility();
+    initPermissions(); // Nueva función para solicitar permisos
     
     // Log de inicialización exitosa
     if (CONFIG.development.debug) {
         console.log('KOOPAGES inicializado correctamente');
     }
+}
+
+/**
+ * Inicializa la solicitud de permisos (Almacenamiento, Ubicación, Notificaciones)
+ */
+function initPermissions() {
+    if (CONFIG.development.debug) {
+        console.log('Iniciando solicitud de permisos...');
+    }
+
+    // 1. Solicitud de Almacenamiento Persistente (para PWA/caching)
+    requestPersistentStorage();
+
+    // 2. Solicitud de Ubicación (solo si es necesario para la funcionalidad)
+    // Se recomienda solicitar la ubicación solo cuando el usuario interactúa con una función que la requiere.
+    // Por ahora, solo se verifica el soporte.
+    if ('geolocation' in navigator) {
+        if (CONFIG.development.debug) {
+            console.log('Soporte de Geolocation detectado.');
+        }
+        // La solicitud real se haría en una función específica, por ejemplo, al buscar negocios cercanos.
+    }
+
+    // 3. Solicitud de Notificaciones
+    requestNotificationPermission();
+}
+
+/**
+ * Solicita permiso para almacenamiento persistente
+ */
+async function requestPersistentStorage() {
+    if (!navigator.storage || !navigator.storage.persist) {
+        if (CONFIG.development.debug) {
+            console.warn('API de Storage Manager no soportada o persistencia no disponible.');
+        }
+        return;
+    }
+
+    try {
+        const isPersisted = await navigator.storage.persisted();
+        if (isPersisted) {
+            if (CONFIG.development.debug) {
+                console.log('Almacenamiento ya es persistente.');
+            }
+            return;
+        }
+
+        const persistenceGranted = await navigator.storage.persist();
+        if (persistenceGranted) {
+            showNotification('Almacenamiento persistente activado.', 'success');
+        } else {
+            if (CONFIG.development.debug) {
+                console.warn('Permiso de almacenamiento persistente denegado por el usuario o el navegador.');
+            }
+        }
+    } catch (error) {
+        Utils.handleError(error, 'Almacenamiento Persistente');
+    }
+}
+
+/**
+ * Solicita permiso para Notificaciones
+ */
+function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        if (CONFIG.development.debug) {
+            console.warn('API de Notificaciones no soportada.');
+        }
+        return;
+    }
+
+    if (Notification.permission === 'granted') {
+        if (CONFIG.development.debug) {
+            console.log('Permiso de Notificaciones ya concedido.');
+        }
+        return;
+    }
+
+    // Se solicita el permiso después de una interacción del usuario, o al inicio si es crítico.
+    // Para este ejemplo, lo solicitamos al inicio, pero se recomienda un patrón de UX más amigable.
+    Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+            showNotification('Permiso de Notificaciones concedido.', 'success');
+        } else if (permission === 'denied') {
+            showNotification('Permiso de Notificaciones denegado.', 'warning');
+        } else {
+            if (CONFIG.development.debug) {
+                console.log('Permiso de Notificaciones cerrado o ignorado.');
+            }
+        }
+    }).catch(error => {
+        Utils.handleError(error, 'Notificaciones');
+    });
 }
 
 /**
