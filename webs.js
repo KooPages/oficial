@@ -2,73 +2,45 @@
 
 const webs = [
     {
-        title: "Google",
-        description: "El buscador más popular de Internet con funciones de búsqueda web, imágenes, videos y más.",
-        url: "https://www.google.com",
-        image: "https://via.placeholder.com/300x160/4285F4/FFFFFF?text=Google",
-        category: "buscadores"
+        title: "Suri Nails",
+        description: "Visitanos",
+        url: "https://spoo.me/suri_nails",
+        image: "https://github.com/KooPages/suri_nails/raw/refs/heads/main/logo.jpg",
+        category: "Servicio"
     },
     {
-        title: "YouTube",
-        description: "Plataforma de videos donde los usuarios pueden subir, ver, compartir y comentar contenido.",
-        url: "https://www.youtube.com",
-        image: "https://via.placeholder.com/300x160/FF0000/FFFFFF?text=YouTube",
-        category: "entretenimiento"
+        title: "Tienda Iyawo",
+        description: "Visitanos",
+        url: "https://spoo.me/tienda_iyawo",
+        image: "https://github.com/KooPages/tienda_iyawo/raw/refs/heads/main/logo.jpg",
+        category: "Tienda"
     },
     {
-        title: "Wikipedia",
-        description: "Enciclopedia libre, políglota y editada de manera colaborativa con millones de artículos.",
-        url: "https://www.wikipedia.org",
-        image: "https://via.placeholder.com/300x160/000000/FFFFFF?text=Wikipedia",
-        category: "educacion"
+        title: "Aly Salon",
+        description: "Visitanos",
+        url: "https://spoo.me/aly_salon",
+        image: "https://github.com/KooPages/aly_salon/raw/refs/heads/main/logo.jpg",
+        category: "Servicio"
     },
     {
-        title: "GitHub",
-        description: "Plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones Git.",
-        url: "https://www.github.com",
-        image: "https://via.placeholder.com/300x160/181717/FFFFFF?text=GitHub",
-        category: "desarrollo"
+        title: "Carnicos Habana",
+        description: "Visitanos",
+        url: "https://spoo.me/carnicos_habana",
+        image: "https://github.com/KooPages/carnicos_habana/raw/refs/heads/main/logo.jpg",
+        category: "Servicio"
     },
     {
-        title: "Stack Overflow",
-        description: "Sitio de preguntas y respuestas para programadores profesionales y entusiastas.",
-        url: "https://stackoverflow.com",
-        image: "https://via.placeholder.com/300x160/F48024/FFFFFF?text=Stack+Overflow",
-        category: "desarrollo"
+        title: "Tienda De Todo Un Poco",
+        description: "Visitanos",
+        url: "https://spoo.me/de_todo_un_poco",
+        image: "https://github.com/KooPages/tienda_de_todo_un_poco/raw/refs/heads/main/logo.png",
+        category: "Tienda"
     },
     {
-        title: "MDN Web Docs",
-        description: "Recursos para desarrolladores, con documentación sobre tecnologías web como HTML, CSS y JavaScript.",
-        url: "https://developer.mozilla.org",
-        image: "https://via.placeholder.com/300x160/83D0F2/FFFFFF?text=MDN+Web+Docs",
-        category: "desarrollo"
-    },
-    {
-        title: "Netflix",
-        description: "Servicio de streaming que ofrece una amplia variedad de series, películas y documentales.",
-        url: "https://www.netflix.com",
-        image: "https://via.placeholder.com/300x160/E50914/FFFFFF?text=Netflix",
-        category: "entretenimiento"
-    },
-    {
-        title: "Spotify",
-        description: "Servicio de streaming de música que te da acceso a millones de canciones y otros contenidos.",
-        url: "https://www.spotify.com",
-        image: "https://via.placeholder.com/300x160/1DB954/FFFFFF?text=Spotify",
-        category: "musica"
-    },
-    {
-        title: "Twitter",
-        description: "Red social que permite a los usuarios publicar y interactuar con mensajes conocidos como tweets.",
-        url: "https://twitter.com",
-        image: "https://via.placeholder.com/300x160/1DA1F2/FFFFFF?text=Twitter",
-        category: "social"
-    },
-    {
-        title: "LinkedIn",
-        description: "Red social orientada al uso empresarial, a los negocios y al empleo.",
-        url: "https://www.linkedin.com",
-        image: "https://via.placeholder.com/300x160/0A66C2/FFFFFF?text=LinkedIn",
-        category: "social"
+        title: "Dulceria Lisst",
+        description: "Visitanos",
+        url: "https://spoo.me/dulceria_lisset",
+        image: "https://github.com/KooPages/dulceria_lisset/raw/refs/heads/main/logo.jpg",
+        category: "Servicio"
     }
 ];
