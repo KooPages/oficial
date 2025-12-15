@@ -21,7 +21,7 @@
 - Sistema de notificaciones mejorado con tipos configurables
 - Lazy loading de imágenes con fallback para navegadores antiguos
 - Anuncios de búsqueda para lectores de pantalla
-- Skip link para navegación por teclado
+- Mejoras en la navegación por teclado
 - Focus management mejorado para accesibilidad
 
 ### 🔒 Seguridad
@@ -48,7 +48,7 @@
 
 ### ♿ Accesibilidad
 
-- Skip to content link implementado
+- Mejoras en la accesibilidad general
 - Atributos `aria-hidden` en secciones inactivas
 - Atributos `aria-live` para anuncios dinámicos
 - Atributos `aria-label` descriptivos en todos los controles
@@ -111,7 +111,7 @@
 - Event listeners con cleanup apropiado
 
 #### CSS (styles-lite.css)
-- Nuevos estilos para skip-link
+- Estilos para navegación por teclado
 - Estilos para footer-links
 - Estilos para notificaciones
 - Clase `.has-focus` para focus visible
@@ -178,7 +178,7 @@ oficial/
 - [x] Resource hints (preconnect, dns-prefetch)
 - [x] Modularización del código JavaScript
 - [x] Constantes y configuración centralizada
-- [x] Mejoras de accesibilidad (skip links, ARIA completo)
+- [x] Mejoras de accesibilidad (ARIA completo)
 
 ### 🔮 Próximos Pasos
 
@@ -210,3 +210,10 @@ Mejoras implementadas para optimizar seguridad, accesibilidad, SEO y rendimiento
 
 **Versión anterior**: 1.0.0 (código original)  
 **Versión actual**: 1.1.0 (con todas las mejoras implementadas)
+
+---
+### 🛡️ Plataforma Asesorada por Koowexa Website
+
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+
+---

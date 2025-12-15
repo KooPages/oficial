@@ -320,3 +320,10 @@ Al contribuir a KOOPAGES, aceptas que tus contribuciones serán licenciadas bajo
 ---
 
 ¡Gracias por contribuir a KOOPAGES! 🚀
+
+---
+### 🛡️ Plataforma Asesorada por Koowexa Website
+
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+
+---

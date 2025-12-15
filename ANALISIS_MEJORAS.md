@@ -22,7 +22,7 @@ Se ha realizado una revisión exhaustiva del repositorio identificando múltiple
 
 ### 1.3 Problemas de Accesibilidad
 - **Atributo aria-hidden faltante**: Las secciones inactivas deberían tener `aria-hidden="true"`
-- **Skip to content link**: Falta un enlace para saltar al contenido principal
+- **Enlace de salto de contenido**: Eliminado por solicitud del usuario
 - **Contraste de colores**: Algunos textos podrían tener mejor contraste
 
 ### 1.4 Problemas de Rendimiento
@@ -178,9 +178,7 @@ Se ha realizado una revisión exhaustiva del repositorio identificando múltiple
 11. Agregar constantes y configuración centralizada
 12. Implementar sistema de filtros por categoría
 13. Agregar modo oscuro
-14. Mejorar accesibilidad (skip links, ARIA completo)
-
-### Baja Prioridad (Deseable)
+- [ ] Mejorar accesibilidad (ARIA completo)### Baja Prioridad (Deseable)
 15. Implementar PWA completa (manifest, service worker)
 16. Agregar sistema de build (Vite/Webpack)
 17. Implementar tests automatizados
@@ -235,3 +233,10 @@ El proyecto tiene una base sólida con buenas prácticas de accesibilidad y dise
 - **Funcionalidad**: Características adicionales para mejor UX
 
 Se procederá a implementar las mejoras de alta y media prioridad en la siguiente fase.
+
+---
+### 🛡️ Plataforma Asesorada por Koowexa Website
+
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+
+---

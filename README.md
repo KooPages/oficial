@@ -151,7 +151,7 @@ El proyecto implementa las siguientes características de accesibilidad:
 - **Focus Visible**: Indicadores claros de enfoque para navegación por teclado
 - **Textos Alternativos**: Todas las imágenes tienen descripciones apropiadas
 - **Semántica HTML**: Uso correcto de elementos semánticos (header, nav, main, footer)
-- **Skip Links**: Enlaces para saltar al contenido principal
+- **Semántica HTML**: Uso correcto de elementos semánticos (header, nav, main, footer)
 - **Responsive Text**: Tamaños de fuente escalables y legibles
 
 ## 🚀 Optimizaciones de Rendimiento
@@ -249,3 +249,10 @@ Desarrollado con dedicación para promover negocios de calidad patrocinados por 
 ---
 
 **KOOPAGES** - Conectando negocios con oportunidades digitales 🚀
+
+---
+### 🛡️ Plataforma Asociada y Asesorada
+
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+
+---
