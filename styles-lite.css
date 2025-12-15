@@ -538,24 +538,7 @@ p {
     }
 }
 
-/* Skip link para accesibilidad */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 0 0 var(--border-radius) 0;
-    font-weight: 600;
-    z-index: 10000;
-    transition: top 0.2s ease;
-}
 
-.skip-link:focus {
-    top: 0;
-}
 
 /* Footer links */
 .footer-links {
