@@ -92,6 +92,38 @@ p {
     min-height: 70px;
 }
 
+/* Estilos para el emblema de Koowexa */
+.koowexa-emblem {
+    margin-left: auto; /* Empuja el emblema hacia la derecha, antes de la navegación */
+    margin-right: 2rem;
+    font-size: 0.85rem;
+    text-align: right;
+    line-height: 1.2;
+}
+
+.koowexa-emblem a {
+    text-decoration: none;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    transition: color 0.3s ease;
+}
+
+.koowexa-emblem a:hover {
+    color: var(--primary-color);
+}
+
+.koowexa-emblem .emblem-text {
+    font-weight: 400;
+    display: block;
+}
+
+.koowexa-emblem .emblem-name {
+    font-weight: 700;
+    color: var(--secondary-color);
+    display: block;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -451,13 +483,26 @@ p {
     .logo {
         margin-right: auto; /* Empuja el menú toggle a la derecha */
     }
-    /* Optimización del Header para evitar overflow */
-    .header .container {
-        flex-wrap: wrap; /* Permite que los elementos se envuelvan si es necesario */
+    
+    .koowexa-emblem {
+        order: 3; /* Mueve el emblema debajo del logo y el menú toggle */
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0 0 0;
     }
     
-    .logo {
-        margin-right: auto; /* Empuja el menú toggle a la derecha */
+    .koowexa-emblem a {
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .koowexa-emblem .emblem-text {
+        display: inline;
+    }
+    
+    .koowexa-emblem .emblem-name {
+        display: inline;
     }
     .container {
         padding: 0 1.25rem;
