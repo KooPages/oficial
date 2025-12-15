@@ -214,6 +214,6 @@ Mejoras implementadas para optimizar seguridad, accesibilidad, SEO y rendimiento
 ---
 ### 🛡️ Plataforma Asesorada por Koowexa Website
 
-Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.github.io/oficial/)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
 
 ---

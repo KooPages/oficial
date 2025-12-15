@@ -217,7 +217,7 @@ Este proyecto es propiedad de **KOOPAGES** y **KOOWEXA**. Todos los derechos res
 
 Para más información sobre KOOPAGES y servicios de patrocinio:
 
-- **Web**: [KOOWEXA](https://koowexa.com) *(ejemplo)*
+- **Web**: [KOOWEXA](https://koowexa.github.io/oficial/) *(ejemplo)*
 - **Email**: info@koopages.com *(ejemplo)*
 
 ## 🗺️ Roadmap
@@ -253,6 +253,6 @@ Desarrollado con dedicación para promover negocios de calidad patrocinados por 
 ---
 ### 🛡️ Plataforma Asociada y Asesorada
 
-Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.com)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
+Este proyecto está asociado y es asesorado por **[Koowexa Website](https://koowexa.github.io/oficial/)**, garantizando la calidad y el cumplimiento de los estándares de desarrollo web.
 
 ---

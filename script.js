@@ -57,24 +57,16 @@ function initializeApp() {
  */
 function initPermissions() {
     if (CONFIG.development.debug) {
-        console.log('Iniciando solicitud de permisos...');
+        console.log('Iniciando inicialización de permisos...');
     }
 
     // 1. Solicitud de Almacenamiento Persistente (para PWA/caching)
+    // Se mantiene al inicio ya que no es un permiso intrusivo para el usuario.
     requestPersistentStorage();
 
-    // 2. Solicitud de Ubicación (solo si es necesario para la funcionalidad)
-    // Se recomienda solicitar la ubicación solo cuando el usuario interactúa con una función que la requiere.
-    // Por ahora, solo se verifica el soporte.
-    if ('geolocation' in navigator) {
-        if (CONFIG.development.debug) {
-            console.log('Soporte de Geolocation detectado.');
-        }
-        // La solicitud real se haría en una función específica, por ejemplo, al buscar negocios cercanos.
-    }
-
-    // 3. Solicitud de Notificaciones
-    requestNotificationPermission();
+    // 2. Inicializar la interfaz para la solicitud de permisos inteligentes
+    // La solicitud de Notificaciones y Ubicación se hará a través de la interfaz de usuario.
+    initPermissionButtons();
 }
 
 /**
@@ -113,28 +105,25 @@ async function requestPersistentStorage() {
 /**
  * Solicita permiso para Notificaciones
  */
-function requestNotificationPermission() {
+function requestNotificationPermissionNative() {
     if (!('Notification' in window)) {
-        if (CONFIG.development.debug) {
-            console.warn('API de Notificaciones no soportada.');
-        }
+        showNotification('Tu navegador no soporta Notificaciones.', 'warning');
         return;
     }
 
     if (Notification.permission === 'granted') {
-        if (CONFIG.development.debug) {
-            console.log('Permiso de Notificaciones ya concedido.');
-        }
+        showNotification('Ya tienes el permiso de Notificaciones concedido.', 'info');
         return;
     }
 
-    // Se solicita el permiso después de una interacción del usuario, o al inicio si es crítico.
-    // Para este ejemplo, lo solicitamos al inicio, pero se recomienda un patrón de UX más amigable.
     Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
-            showNotification('Permiso de Notificaciones concedido.', 'success');
+            showNotification('Permiso de Notificaciones concedido. ¡Te avisaremos de nuevas ofertas!', 'success');
+            // Opcional: Deshabilitar el botón de solicitud
+            const btn = document.getElementById('requestNotificationBtn');
+            if (btn) btn.style.display = 'none';
         } else if (permission === 'denied') {
-            showNotification('Permiso de Notificaciones denegado.', 'warning');
+            showNotification('Permiso de Notificaciones denegado. No podrás recibir alertas de ofertas.', 'warning');
         } else {
             if (CONFIG.development.debug) {
                 console.log('Permiso de Notificaciones cerrado o ignorado.');
@@ -143,6 +132,137 @@ function requestNotificationPermission() {
     }).catch(error => {
         Utils.handleError(error, 'Notificaciones');
     });
+}
+
+/**
+ * Solicita permiso para Ubicación (Llamada nativa)
+ */
+function requestLocationPermissionNative() {
+    if (!('geolocation' in navigator)) {
+        showNotification('Tu navegador no soporta Geolocation.', 'warning');
+        return;
+    }
+
+    // Verificar si el permiso ya está concedido o denegado
+    navigator.permissions.query({ name: 'geolocation' }).then(permissionStatus => {
+        if (permissionStatus.state === 'granted') {
+            showNotification('Ya tienes el permiso de Ubicación concedido.', 'info');
+            // Opcional: Deshabilitar el botón de solicitud
+            const btn = document.getElementById('requestLocationBtn');
+            if (btn) btn.style.display = 'none';
+            return;
+        }
+
+        if (permissionStatus.state === 'denied') {
+            showNotification('Permiso de Ubicación denegado. No podemos buscar negocios cercanos.', 'warning');
+            return;
+        }
+
+        // Si es 'prompt', solicitamos la ubicación
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                showNotification('Permiso de Ubicación concedido. ¡Buscando negocios cercanos!', 'success');
+                // Aquí iría la lógica para usar la ubicación
+                if (CONFIG.development.debug) {
+                    console.log('Ubicación:', position.coords.latitude, position.coords.longitude);
+                }
+                const btn = document.getElementById('requestLocationBtn');
+                if (btn) btn.style.display = 'none';
+            },
+            (error) => {
+                if (error.code === error.PERMISSION_DENIED) {
+                    showNotification('Permiso de Ubicación denegado. Puedes introducir tu ubicación manualmente.', 'warning');
+                } else {
+                    showNotification('Error al obtener la ubicación.', 'error');
+                }
+                Utils.handleError(error, 'Geolocation');
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    });
+}
+
+/**
+ * Muestra un mensaje previo (pre-permission prompt) antes de la solicitud nativa.
+ * @param {string} type - 'notification' o 'location'
+ */
+function showPermissionPrompt(type) {
+    let title, message, action;
+
+    if (type === 'notification') {
+        title = 'Activar Notificaciones de Ofertas';
+        message = '¿Quieres recibir alertas instantáneas sobre nuevas ofertas y negocios patrocinados? Te avisaremos solo de contenido relevante.';
+        action = requestNotificationPermissionNative;
+    } else if (type === 'location') {
+        title = 'Buscar Negocios Cercanos';
+        message = 'Permite el acceso a tu ubicación para que podamos mostrarte los negocios patrocinados más cercanos a ti.';
+        action = requestLocationPermissionNative;
+    } else {
+        return;
+    }
+
+    // Usamos la función showNotification existente para el mensaje previo
+    // Creamos un modal/banner más persistente para el prompt
+    const promptId = `permission-prompt-${type}`;
+    
+    // Si ya existe el prompt, no lo mostramos de nuevo
+    if (document.getElementById(promptId)) return;
+
+    const prompt = document.createElement('div');
+    prompt.id = promptId;
+    prompt.className = 'permission-prompt';
+    prompt.setAttribute('role', 'dialog');
+    prompt.setAttribute('aria-modal', 'true');
+    prompt.setAttribute('aria-labelledby', `${promptId}-title`);
+    
+    prompt.innerHTML = `
+        <div class="prompt-content">
+            <h3 id="${promptId}-title">${title}</h3>
+            <p>${message}</p>
+            <div class="prompt-actions">
+                <button id="${promptId}-allow" class="btn btn-primary">Permitir</button>
+                <button id="${promptId}-deny" class="btn btn-secondary">Ahora no</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(prompt);
+
+    // Lógica de los botones
+    document.getElementById(`${promptId}-allow`).addEventListener('click', () => {
+        prompt.remove();
+        action(); // Llama a la función de solicitud nativa
+    });
+
+    document.getElementById(`${promptId}-deny`).addEventListener('click', () => {
+        prompt.remove();
+        showNotification('Solicitud pospuesta. Puedes activarla más tarde.', 'info');
+    });
+}
+
+/**
+ * Inicializa los botones de solicitud de permisos en la interfaz
+ */
+function initPermissionButtons() {
+    // Aquí se asume que existen botones con estos IDs en el HTML,
+    // o que se añadirán dinámicamente en otra parte del código.
+    // Para una implementación "inteligente", estos botones deberían estar
+    // en un lugar donde el usuario espere la funcionalidad (e.g., un botón
+    // "Buscar cerca de mí" o un banner de "Activar notificaciones").
+    const notificationBtn = document.getElementById('requestNotificationBtn');
+    const locationBtn = document.getElementById('requestLocationBtn');
+
+    if (notificationBtn) {
+        notificationBtn.addEventListener('click', () => {
+            showPermissionPrompt('notification');
+        });
+    }
+
+    if (locationBtn) {
+        locationBtn.addEventListener('click', () => {
+            showPermissionPrompt('location');
+        });
+    }
 }
 
 /**
@@ -769,6 +889,10 @@ if (typeof window !== 'undefined') {
         filterWebsByCategory,
         addWeb,
         showNotification,
-        loadWebs
+        loadWebs,
+        // Exportar las nuevas funciones para posibles llamadas externas
+        showPermissionPrompt,
+        requestNotificationPermissionNative,
+        requestLocationPermissionNative
     };
 }
