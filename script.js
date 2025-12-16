@@ -31,7 +31,7 @@ function initializeApp() {
     const sections = document.querySelectorAll('.section');
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.nav');
-    const searchInput = document.getElementById('searchInput');
+
     
     // Validar elementos críticos
     if (!navLinks.length || !sections.length || !menuToggle || !nav) {
@@ -40,11 +40,9 @@ function initializeApp() {
     
     // Inicializar módulos
     initNavigation(navLinks, sections, menuToggle, nav);
-    initSearch(searchInput);
     initWebs();
     initBrowserHistory();
     initAccessibility();
-    initPermissions(); // Nueva función para solicitar permisos
     
     // Log de inicialización exitosa
     if (CONFIG.development.debug) {
@@ -55,19 +53,6 @@ function initializeApp() {
 /**
  * Inicializa la solicitud de permisos (Almacenamiento, Ubicación, Notificaciones)
  */
-function initPermissions() {
-    if (CONFIG.development.debug) {
-        console.log('Iniciando inicialización de permisos...');
-    }
-
-    // 1. Solicitud de Almacenamiento Persistente (para PWA/caching)
-    // Se mantiene al inicio ya que no es un permiso intrusivo para el usuario.
-    requestPersistentStorage();
-
-    // 2. Inicializar la interfaz para la solicitud de permisos inteligentes
-    // La solicitud de Notificaciones y Ubicación se hará a través de la interfaz de usuario.
-    initPermissionButtons();
-}
 
 /**
  * Solicita permiso para almacenamiento persistente
@@ -105,165 +90,19 @@ async function requestPersistentStorage() {
 /**
  * Solicita permiso para Notificaciones
  */
-function requestNotificationPermissionNative() {
-    if (!('Notification' in window)) {
-        showNotification('Tu navegador no soporta Notificaciones.', 'warning');
-        return;
-    }
-
-    if (Notification.permission === 'granted') {
-        showNotification('Ya tienes el permiso de Notificaciones concedido.', 'info');
-        return;
-    }
-
-    Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-            showNotification('Permiso de Notificaciones concedido. ¡Te avisaremos de nuevas ofertas!', 'success');
-            // Opcional: Deshabilitar el botón de solicitud
-            const btn = document.getElementById('requestNotificationBtn');
-            if (btn) btn.style.display = 'none';
-        } else if (permission === 'denied') {
-            showNotification('Permiso de Notificaciones denegado. No podrás recibir alertas de ofertas.', 'warning');
-        } else {
-            if (CONFIG.development.debug) {
-                console.log('Permiso de Notificaciones cerrado o ignorado.');
-            }
-        }
-    }).catch(error => {
-        Utils.handleError(error, 'Notificaciones');
-    });
-}
 
 /**
  * Solicita permiso para Ubicación (Llamada nativa)
  */
-function requestLocationPermissionNative() {
-    if (!('geolocation' in navigator)) {
-        showNotification('Tu navegador no soporta Geolocation.', 'warning');
-        return;
-    }
-
-    // Verificar si el permiso ya está concedido o denegado
-    navigator.permissions.query({ name: 'geolocation' }).then(permissionStatus => {
-        if (permissionStatus.state === 'granted') {
-            showNotification('Ya tienes el permiso de Ubicación concedido.', 'info');
-            // Opcional: Deshabilitar el botón de solicitud
-            const btn = document.getElementById('requestLocationBtn');
-            if (btn) btn.style.display = 'none';
-            return;
-        }
-
-        if (permissionStatus.state === 'denied') {
-            showNotification('Permiso de Ubicación denegado. No podemos buscar negocios cercanos.', 'warning');
-            return;
-        }
-
-        // Si es 'prompt', solicitamos la ubicación
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                showNotification('Permiso de Ubicación concedido. ¡Buscando negocios cercanos!', 'success');
-                // Aquí iría la lógica para usar la ubicación
-                if (CONFIG.development.debug) {
-                    console.log('Ubicación:', position.coords.latitude, position.coords.longitude);
-                }
-                const btn = document.getElementById('requestLocationBtn');
-                if (btn) btn.style.display = 'none';
-            },
-            (error) => {
-                if (error.code === error.PERMISSION_DENIED) {
-                    showNotification('Permiso de Ubicación denegado. Puedes introducir tu ubicación manualmente.', 'warning');
-                } else {
-                    showNotification('Error al obtener la ubicación.', 'error');
-                }
-                Utils.handleError(error, 'Geolocation');
-            },
-            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        );
-    });
-}
 
 /**
  * Muestra un mensaje previo (pre-permission prompt) antes de la solicitud nativa.
  * @param {string} type - 'notification' o 'location'
  */
-function showPermissionPrompt(type) {
-    let title, message, action;
-
-    if (type === 'notification') {
-        title = 'Activar Notificaciones de Ofertas';
-        message = '¿Quieres recibir alertas instantáneas sobre nuevas ofertas y negocios patrocinados? Te avisaremos solo de contenido relevante.';
-        action = requestNotificationPermissionNative;
-    } else if (type === 'location') {
-        title = 'Buscar Negocios Cercanos';
-        message = 'Permite el acceso a tu ubicación para que podamos mostrarte los negocios patrocinados más cercanos a ti.';
-        action = requestLocationPermissionNative;
-    } else {
-        return;
-    }
-
-    // Usamos la función showNotification existente para el mensaje previo
-    // Creamos un modal/banner más persistente para el prompt
-    const promptId = `permission-prompt-${type}`;
-    
-    // Si ya existe el prompt, no lo mostramos de nuevo
-    if (document.getElementById(promptId)) return;
-
-    const prompt = document.createElement('div');
-    prompt.id = promptId;
-    prompt.className = 'permission-prompt';
-    prompt.setAttribute('role', 'dialog');
-    prompt.setAttribute('aria-modal', 'true');
-    prompt.setAttribute('aria-labelledby', `${promptId}-title`);
-    
-    prompt.innerHTML = `
-        <div class="prompt-content">
-            <h3 id="${promptId}-title">${title}</h3>
-            <p>${message}</p>
-            <div class="prompt-actions">
-                <button id="${promptId}-allow" class="btn btn-primary">Permitir</button>
-                <button id="${promptId}-deny" class="btn btn-secondary">Ahora no</button>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(prompt);
-
-    // Lógica de los botones
-    document.getElementById(`${promptId}-allow`).addEventListener('click', () => {
-        prompt.remove();
-        action(); // Llama a la función de solicitud nativa
-    });
-
-    document.getElementById(`${promptId}-deny`).addEventListener('click', () => {
-        prompt.remove();
-        showNotification('Solicitud pospuesta. Puedes activarla más tarde.', 'info');
-    });
-}
 
 /**
  * Inicializa los botones de solicitud de permisos en la interfaz
  */
-function initPermissionButtons() {
-    // Aquí se asume que existen botones con estos IDs en el HTML,
-    // o que se añadirán dinámicamente en otra parte del código.
-    // Para una implementación "inteligente", estos botones deberían estar
-    // en un lugar donde el usuario espere la funcionalidad (e.g., un botón
-    // "Buscar cerca de mí" o un banner de "Activar notificaciones").
-    const notificationBtn = document.getElementById('requestNotificationBtn');
-    const locationBtn = document.getElementById('requestLocationBtn');
-
-    if (notificationBtn) {
-        notificationBtn.addEventListener('click', () => {
-            showPermissionPrompt('notification');
-        });
-    }
-
-    if (locationBtn) {
-        locationBtn.addEventListener('click', () => {
-            showPermissionPrompt('location');
-        });
-    }
-}
 
 /**
  * Inicializa el sistema de navegación
@@ -383,150 +222,18 @@ function closeMobileMenu(nav, menuToggle) {
 /**
  * Inicializa el sistema de búsqueda
  */
-function initSearch(searchInput) {
-    if (!searchInput) {
-        console.warn('Input de búsqueda no encontrado');
-        return;
-    }
-    
-    // Búsqueda con debounce
-    const debouncedSearch = Utils.debounce((searchTerm) => {
-        try {
-            filterWebs(searchTerm);
-        } catch (error) {
-            Utils.handleError(error, 'Búsqueda');
-        }
-    }, CONFIG.search.debounceDelay);
-    
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.trim();
-        debouncedSearch(searchTerm);
-    });
-    
-    // Limpiar búsqueda con Escape
-    searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && this.value) {
-            this.value = '';
-            filterWebs('');
-            this.focus();
-        }
-    });
-}
 
 /**
  * Filtra las webs según el término de búsqueda
  */
-function filterWebs(searchTerm) {
-    const webCards = document.querySelectorAll('.web-card');
-    const normalizedSearch = Utils.normalizeString(searchTerm);
-    let visibleCount = 0;
-    
-    webCards.forEach(card => {
-        try {
-            const titleElement = card.querySelector('h3');
-            const descElement = card.querySelector('p');
-            
-            if (!titleElement || !descElement) {
-                console.warn('Elementos de tarjeta incompletos');
-                return;
-            }
-            
-            const title = Utils.normalizeString(titleElement.textContent);
-            const description = Utils.normalizeString(descElement.textContent);
-            const category = Utils.normalizeString(card.getAttribute('data-category') || '');
-            
-            const matches = normalizedSearch === '' || 
-                          title.includes(normalizedSearch) || 
-                          description.includes(normalizedSearch) ||
-                          category.includes(normalizedSearch);
-            
-            if (matches) {
-                card.style.display = 'block';
-                card.removeAttribute('aria-hidden');
-                visibleCount++;
-            } else {
-                card.style.display = 'none';
-                card.setAttribute('aria-hidden', 'true');
-            }
-        } catch (error) {
-            Utils.handleError(error, 'Filtrado de tarjeta');
-        }
-    });
-    
-    // Mostrar mensaje si no hay resultados
-    updateNoResultsMessage(visibleCount, searchTerm);
-    
-    // Anunciar resultados para lectores de pantalla
-    announceSearchResults(visibleCount, searchTerm);
-}
 
 /**
  * Actualiza el mensaje de "sin resultados"
  */
-function updateNoResultsMessage(visibleCount, searchTerm) {
-    const container = document.getElementById('websContainer');
-    if (!container) return;
-    
-    let noResultsMsg = container.querySelector('.no-results');
-    
-    if (visibleCount === 0 && searchTerm !== '') {
-        if (!noResultsMsg) {
-            noResultsMsg = document.createElement('div');
-            noResultsMsg.className = 'no-results';
-            noResultsMsg.setAttribute('role', 'status');
-            noResultsMsg.setAttribute('aria-live', 'polite');
-            
-            const sanitizedTerm = Utils.escapeHTML(searchTerm);
-            noResultsMsg.innerHTML = `
-                <p>No se encontraron negocios que coincidan con "<strong>${sanitizedTerm}</strong>"</p>
-                <button id="clearSearch" class="web-card-link" type="button">
-                    ${CONFIG.messages.clearSearch}
-                </button>
-            `;
-            container.appendChild(noResultsMsg);
-            
-            // Agregar evento al botón de limpiar
-            const clearBtn = document.getElementById('clearSearch');
-            if (clearBtn) {
-                clearBtn.addEventListener('click', function() {
-                    const searchInput = document.getElementById('searchInput');
-                    if (searchInput) {
-                        searchInput.value = '';
-                        filterWebs('');
-                        searchInput.focus();
-                    }
-                });
-            }
-        }
-    } else if (noResultsMsg) {
-        noResultsMsg.remove();
-    }
-}
 
 /**
  * Anuncia resultados de búsqueda para lectores de pantalla
  */
-function announceSearchResults(count, searchTerm) {
-    const container = document.getElementById('websContainer');
-    if (!container) return;
-    
-    let announcement = container.querySelector('.search-announcement');
-    
-    if (!announcement) {
-        announcement = document.createElement('div');
-        announcement.className = 'sr-only search-announcement';
-        announcement.setAttribute('role', 'status');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        container.insertBefore(announcement, container.firstChild);
-    }
-    
-    if (searchTerm) {
-        announcement.textContent = `${count} negocio${count !== 1 ? 's' : ''} encontrado${count !== 1 ? 's' : ''}`;
-    } else {
-        announcement.textContent = '';
-    }
-}
 
 /**
  * Inicializa y carga las webs
@@ -705,33 +412,6 @@ function addWeb(title, description, url, image, category = 'general') {
 /**
  * Filtra webs por categoría
  */
-function filterWebsByCategory(category) {
-    if (typeof webs === 'undefined') {
-        console.error('Array de webs no disponible');
-        return;
-    }
-    
-    try {
-        const filteredWebs = category === 'all' 
-            ? webs 
-            : webs.filter(web => web.category === category);
-        
-        loadWebs(filteredWebs);
-        
-        // Actualizar interfaz para mostrar categoría activa
-        document.querySelectorAll('.category-filter').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.getAttribute('data-category') === category) {
-                btn.classList.add('active');
-                btn.setAttribute('aria-pressed', 'true');
-            } else {
-                btn.setAttribute('aria-pressed', 'false');
-            }
-        });
-    } catch (error) {
-        Utils.handleError(error, 'Filtrado por categoría');
-    }
-}
 
 /**
  * Muestra una notificación

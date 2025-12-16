@@ -266,38 +266,7 @@ h2 {
     font-size: 1.35rem;
 }
 
-/* 6. Search Bar */
-.search-bar {
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
-}
 
-.search-bar input {
-    width: 100%;
-    padding: 1.1rem 3.5rem 1.1rem 1.5rem;
-    border: 2px solid var(--border-color);
-    border-radius: 50px; /* Más redondeado */
-    font-size: 1.05rem;
-    transition: var(--transition);
-    background-color: white;
-    color: var(--text-color);
-}
-
-.search-bar input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(0, 71, 171, 0.2);
-}
-
-.search-bar .icon {
-    position: absolute;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-light);
-    pointer-events: none;
-}
 
 /* 7. Webs Container (Tarjetas de Negocios) */
 .webs-container {
@@ -325,10 +294,13 @@ h2 {
 
 .web-card img {
     width: 100%;
-    aspect-ratio: 16 / 9; 
-    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
     display: block;
     min-height: 150px;
+    max-height: 250px;
+    background-color: var(--light-color);
+    padding: 1rem;
 }
 
 .web-card-content {
@@ -441,23 +413,7 @@ h2 {
 	
 	/* 10. Notificaciones y Permisos (Inteligente) */
 	
-	/* Estilos para el botón de solicitud de permisos (ejemplo) */
-	.permission-request-btn {
-	    background-color: var(--primary-color);
-	    color: white;
-	    border: none;
-	    padding: 0.75rem 1.5rem;
-	    border-radius: var(--border-radius);
-	    font-weight: 600;
-	    cursor: pointer;
-	    transition: var(--transition-fast);
-	    margin-top: 1rem;
-	    display: inline-block;
-	}
-	
-	.permission-request-btn:hover {
-	    background-color: var(--primary-dark);
-	}
+
 	
 	/* Estilos para el mensaje previo (Pre-Permission Prompt) */
 	.permission-prompt {
