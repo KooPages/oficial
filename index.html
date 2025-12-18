@@ -22,7 +22,7 @@
     <meta property="og:url" content="https://koopages.com/">
     <meta property="og:title" content="KOOPAGES - Plataforma de Negocios Patrocinados">
     <meta property="og:description" content="Descubre todos los negocios patrocinados y asesorados por KOOWEXA. Servicios profesionales y tiendas en línea certificadas con soporte digital avanzado.">
-    <meta property="og:image" content="https://koopages.com/KOOPAGES.jpeg">
+    <meta property="og:image" content="https://koopages.com/logo.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="KOOPAGES">
@@ -33,7 +33,7 @@
     <meta name="twitter:url" content="https://koopages.com/">
     <meta name="twitter:title" content="KOOPAGES - Plataforma de Negocios Patrocinados">
     <meta name="twitter:description" content="Descubre todos los negocios patrocinados y asesorados por KOOWEXA. Servicios profesionales y tiendas en línea certificadas con soporte digital avanzado.">
-    <meta name="twitter:image" content="https://koopages.com/KOOPAGES.jpeg">
+    <meta name="twitter:image" content="https://koopages.com/logo.jpg">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://koopages.com/">
@@ -67,7 +67,7 @@
         "name": "KOOPAGES",
         "description": "Plataforma de negocios patrocinados por KOOWEXA",
         "url": "https://koopages.com",
-        "logo": "https://koopages.com/KOOPAGES.jpeg",
+        "logo": "https://koopages.com/logo.jpg",
         "foundingDate": "2025",
         "sameAs": []
     }
@@ -79,7 +79,7 @@
     <header class="header" role="banner">
         <div class="container">
             <a href="#inicio" class="logo" aria-label="KOOPAGES - Ir al inicio">
-                <img src="KOOPAGES.jpeg" alt="Logotipo de KOOPAGES" class="logo-img" width="32" height="32">
+                <img src="logo.jpg" alt="Logotipo de KOOPAGES" class="logo-img" width="32" height="32">
                 <h1>KOOPAGES</h1>
             </a>
             <div class="koowexa-emblem">
@@ -108,6 +108,10 @@
             <div class="container">
                 <h2 id="inicio-heading">Bienvenido a KOOPAGES</h2>
                 <p class="lead">Bienvenido a KOOPAGES, la plataforma exclusiva de negocios patrocinados y **asesorados por KOOWEXA**. Conectamos a emprendedores con oportunidades digitales, garantizando calidad certificada y soporte avanzado para su crecimiento.</p>
+                <div id="dailyRecommendation" class="daily-recommendation" role="region" aria-live="polite" aria-labelledby="recommendation-heading">
+                    <h3 id="recommendation-heading">Recomendación del Día</h3>
+                    <!-- La recomendación se cargará aquí -->
+                </div>
                 <div class="features">
                     <article class="feature-card">
                         <svg class="icon" width="48" height="48" aria-hidden="true" focusable="false">
@@ -187,6 +191,7 @@
     <script src="config.js"></script>
     <script src="utils.js"></script>
     <script src="webs.js"></script>
+    <script src="daily_recommendation.js"></script>
     <script src="script.js"></script>
     
     <!-- Performance Monitoring (opcional) -->
