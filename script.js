@@ -199,8 +199,8 @@ function navigateToSection(targetId, navLinks, sections, nav, menuToggle) {
  */
 function toggleMobileMenu(menuToggle, nav) {
     const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', !isExpanded);
-    nav.classList.toggle('active');
+	    menuToggle.setAttribute('aria-expanded', !isExpanded);
+	    nav.classList.toggle('active');
     
     // Enfocar el primer enlace del menú cuando se abre
     if (!isExpanded) {

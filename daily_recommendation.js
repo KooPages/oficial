@@ -71,60 +71,7 @@ function displayDailyRecommendation() {
             container.innerHTML += cardHTML;
         }
         
-        // Opcional: Añadir un estilo simple para que se vea bien
-        const style = document.createElement('style');
-        style.textContent = `
-            .daily-recommendation {
-                margin-top: 20px;
-                padding: 20px;
-                border: 1px solid #e5e7eb;
-                border-radius: 8px;
-                background-color: #f9fafb;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            }
-            .daily-recommendation h3 {
-                color: #1f2937;
-                margin-top: 0;
-                margin-bottom: 15px;
-                border-bottom: 2px solid #3b82f6;
-                padding-bottom: 5px;
-            }
-            .recommendation-card {
-                display: flex;
-                gap: 15px;
-                align-items: center;
-            }
-            .recommendation-img {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-                border-radius: 4px;
-                flex-shrink: 0;
-            }
-            .recommendation-content h4 {
-                margin: 0 0 5px 0;
-                color: #3b82f6;
-            }
-            .recommendation-content p {
-                margin: 0 0 10px 0;
-                font-size: 0.9em;
-                color: #4b5563;
-            }
-            .recommendation-link {
-                display: inline-block;
-                padding: 5px 10px;
-                background-color: #3b82f6;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-                font-size: 0.85em;
-                transition: background-color 0.3s;
-            }
-            .recommendation-link:hover {
-                background-color: #2563eb;
-            }
-        `;
-        document.head.appendChild(style);
+
 
     } else {
         container.innerHTML += '<p>No hay negocios disponibles para recomendar hoy.</p>';

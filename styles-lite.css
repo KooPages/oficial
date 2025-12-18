@@ -12,11 +12,11 @@
 
 :root {
     /* Colores Corporativos (Azul Oscuro y Verde) */
-    --primary-color: #0047AB; /* Azul Corporativo Profundo */
-    --primary-dark: #003380;
-    --secondary-color: #1E293B; /* Gris Oscuro para Texto Principal */
+    --primary-color: #1E40AF; /* Azul Corporativo (más vibrante y moderno) */
+    --primary-dark: #1E3A8A;
+    --secondary-color: #1F2937; /* Gris Oscuro para Texto Principal (ligeramente más oscuro para mejor contraste) */
     --secondary-light: #475569;
-    --accent-color: #00A86B; /* Verde para Acento/Crecimiento */
+    --accent-color: #059669; /* Verde para Acento/Crecimiento (más profundo) */},{find:
     --light-color: #F8FAFC; /* Fondo muy claro */
     --dark-color: #0F172A; /* Negro casi puro */
     --text-color: var(--secondary-color);
@@ -31,13 +31,13 @@
     --border-radius: 10px; /* Ligeramente más redondeado */
     --border-radius-lg: 16px;
     /* Sombras más suaves y elevadas */
-    --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* Sombra más moderna y sutil */
     --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --box-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra de hover más controlada */
     
     /* Transiciones más fluidas */
-    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --transition-fast: all 0.2s ease-in-out;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más rápida y estándar */
+    --transition-fast: all 0.15s ease-in-out;
 }
 
 /* 2. Tipografía y Base */
@@ -47,7 +47,7 @@ body {
     color: var(--text-color);
     background-color: var(--light-color);
     font-size: 16px;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased; /* Nitidez: Mejorar el renderizado de fuentes */
     -moz-osx-font-smoothing: grayscale;
 }
 
@@ -83,12 +83,12 @@ h2 {
 
 /* 3. Header y Navegación */
 .header {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.95); /* Fondo semitransparente */
     box-shadow: var(--box-shadow);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px); /* Ligeramente más borroso */
+    backdrop-filter: blur(10px); /* Efecto de cristal esmerilado */
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -109,17 +109,17 @@ h2 {
 
 .logo h1 {
     font-size: 1.75rem;
-    color: var(--primary-color);
+    color: var(--dark-color); /* Usar color oscuro para el texto del logo */
     font-weight: 800;
 }
 
 .logo .logo-img {
-    width: 40px; /* Ligeramente más grande */
-    height: 40px;
-    border-radius: 50%; /* Circular para un toque moderno */
+    width: 48px; /* Más grande para destacar */
+    height: 48px;
+    border-radius: var(--border-radius); /* Cuadrado con bordes redondeados */
     object-fit: cover;
     flex-shrink: 0;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-lg); /* Sombra más pronunciada */
 }
 
 .koowexa-emblem {
@@ -269,6 +269,88 @@ h2 {
 
 
 /* 7. Webs Container (Tarjetas de Negocios) */
+
+/* Estilos para la Recomendación Diaria (Optimizado) */
+.daily-recommendation {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    background-color: var(--light-color);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.daily-recommendation h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-color); /* Usar color de acento */
+    padding-bottom: 0.5rem;
+}
+
+.recommendation-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap; /* Adaptabilidad */
+}
+
+.recommendation-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+    box-shadow: var(--box-shadow);
+}
+
+.recommendation-content {
+    flex-grow: 1;
+}
+
+.recommendation-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+}
+
+.recommendation-content p {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.recommendation-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.recommendation-link:hover {
+    background-color: var(--primary-color);
+}
+
+@media (max-width: 480px) {
+    .recommendation-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .recommendation-img {
+        margin-bottom: 1rem;
+    }
+    .recommendation-link {
+        width: 100%;
+    }
+}
+
+/* Fin Estilos Recomendación Diaria */
 .webs-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -382,34 +464,40 @@ h2 {
 
 /* 9. Footer */
 .footer {
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 2.5rem 0;
+    background-color: var(--dark-color); /* Usar el color más oscuro para mayor contraste */
+    color: var(--light-color);
+    padding: 3rem 0; /* Más espacio */
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    border-top: 5px solid var(--primary-color); /* Línea de color primario para destacar */
 }
 
 .footer p {
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }
 
 .footer-links {
-    margin-top: 0.75rem;
-    font-size: 1rem;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--accent-color); /* Usar color de acento para los enlaces */
     text-decoration: none;
+    font-weight: 600;
     transition: var(--transition-fast);
 }
 
-	.footer-links a:hover,
-	.footer-links a:focus {
-	    color: var(--accent-color);
-	    text-decoration: underline;
-	}
+.footer-links a:hover,
+.footer-links a:focus {
+    color: var(--primary-color); /* Cambiar a primary en hover */
+    text-decoration: underline;
+}
 	
 	/* 10. Notificaciones y Permisos (Inteligente) */
 	
@@ -552,7 +640,6 @@ h2 {
     }
     
     .nav {
-        display: none;
         position: absolute;
         top: 100%;
         left: 0;
@@ -560,10 +647,15 @@ h2 {
         background: white;
         box-shadow: var(--box-shadow-lg);
         border-top: 1px solid var(--border-color);
+        max-height: 0; /* Ocultar por defecto */
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
     }
     
     .nav.active {
-        display: block;
+        max-height: 300px; /* Suficiente para el contenido del menú */
+        opacity: 1;
     }
     
     .nav ul {
@@ -646,7 +738,7 @@ h2 {
     :root {
         --primary-color: #000000;
         --secondary-color: #000000;
-        --accent-color: #00A86B;
+        --accent-color: #059669;
         --text-color: #000000;
         --border-color: #000000;
     }
