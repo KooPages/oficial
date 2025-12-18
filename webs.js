@@ -42,5 +42,19 @@ const webs = [
         url: "https://spoo.me/dulceria_lisset",
         image: "https://github.com/KooPages/dulceria_lisset/raw/refs/heads/main/logo.jpg",
         category: "Servicio"
-    }
+    },
+    {
+        title: "Vitivo Shop",
+        description: "Tienda de productos variados, especializada en alimentos.",
+        url: "https://spoo.me/vitico_shop",
+        image: "https://github.com/KooPages/vitico_shop/raw/refs/heads/main/logo.jpg",
+        category: "Tienda"
+    },
+    {
+        title: "Proximamente",
+        description: "???",
+        url: "#",
+        image: "#",
+        category: "???"
+    },
 ];
