@@ -133,12 +133,13 @@ function displayDailyRecommendation() {
         const image = recommendation.image || 'https://via.placeholder.com/300x300/1A237E/FFFFFF?text=KOOPAGES';
         
         const cardHTML = `
-            <div class="recommendation-card">
-                <img src="${image}" alt="${title}" class="recommendation-img" 
+            <div class="recommendation-card" itemscope itemtype="http://schema.org/LocalBusiness">
+                <img src="${image}" alt="${title} - Negocio recomendado" class="recommendation-img" itemprop="image"
                      onerror="this.src='https://via.placeholder.com/300x300/1A237E/FFFFFF?text=KOOPAGES'; this.onerror=null;">
                 <div class="recommendation-content">
-                    <h4>${title}</h4>
-                    <a href="${url}" class="recommendation-link" target="_blank" rel="noopener noreferrer">
+                    <h4 itemprop="name">${title}</h4>
+                    <p itemprop="description">${Utils.escapeHTML(recommendation.description || 'Negocio recomendado por KOOPAGES')}</p>
+                    <a href="${url}" class="recommendation-link" target="_blank" rel="noopener noreferrer" itemprop="url">
                         <svg width="20" height="20" style="margin-right: 8px;">
                             <use xlink:href="#external-link"></use>
                         </svg>
@@ -167,7 +168,7 @@ function loadWebs() {
 
     const fragment = document.createDocumentFragment();
     
-    webs.forEach((web) => {
+    webs.forEach((web, index) => {
         if (!web.title || web.url === '#') return;
         
         const title = Utils.escapeHTML(web.title);
@@ -176,12 +177,20 @@ function loadWebs() {
         
         const webCard = document.createElement('article');
         webCard.className = 'web-card';
+        webCard.setAttribute('itemscope', '');
+        webCard.setAttribute('itemtype', 'http://schema.org/LocalBusiness');
+        webCard.setAttribute('itemprop', 'itemListElement');
+        webCard.setAttribute('itemscope', '');
+        webCard.setAttribute('itemtype', 'http://schema.org/ListItem');
         
         webCard.innerHTML = `
-            <img src="${image}" alt="${title}" loading="lazy" width="100" height="100"
+            <meta itemprop="position" content="${index + 1}">
+            <img src="${image}" alt="${title} - ${web.category}" loading="lazy" width="100" height="100" itemprop="image"
                  onerror="this.src='https://via.placeholder.com/150x150/1A237E/FFFFFF?text=KOOPAGES'; this.onerror=null;">
-            <h3>${title}</h3>
-            <a href="${url}" class="web-card-link" target="_blank" rel="noopener noreferrer">
+            <h3 itemprop="name">${title}</h3>
+            <p itemprop="description" style="display:none;">${Utils.escapeHTML(web.description || 'Negocio patrocinado por KOOPAGES')}</p>
+            <meta itemprop="category" content="${web.category}">
+            <a href="${url}" class="web-card-link" target="_blank" rel="noopener noreferrer" itemprop="url">
                 <svg width="18" height="18">
                     <use xlink:href="#external-link"></use>
                 </svg>
@@ -285,13 +294,72 @@ function navigateToSection(targetId, navLinks, sections, nav, menuToggle) {
     }
 }
 
+function initWhatsAppButton() {
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const whatsappNotification = document.getElementById('whatsappNotification');
+    const closeNotification = document.getElementById('closeNotification');
+    const whatsappGroupURL = 'https://chat.whatsapp.com/K0bZ1d1yySLL9qgBl3cZus';
+    
+    if (!whatsappBtn || !whatsappNotification) return;
+
+    setTimeout(() => {
+        const notificationClosed = localStorage.getItem('whatsappNotificationClosed');
+        if (!notificationClosed) {
+            whatsappNotification.classList.add('show');
+        }
+    }, 3000);
+
+    if (closeNotification) {
+        closeNotification.addEventListener('click', function(e) {
+            e.stopPropagation();
+            whatsappNotification.classList.remove('show');
+            localStorage.setItem('whatsappNotificationClosed', 'true');
+        });
+    }
+
+    whatsappBtn.addEventListener('click', function() {
+        whatsappNotification.classList.remove('show');
+        localStorage.setItem('whatsappNotificationClosed', 'true');
+        
+        setTimeout(() => {
+            window.open(whatsappGroupURL, '_blank', 'noopener,noreferrer');
+        }, 300);
+    });
+
+    whatsappNotification.addEventListener('click', function(e) {
+        if (e.target !== closeNotification) {
+            window.open(whatsappGroupURL, '_blank', 'noopener,noreferrer');
+            this.classList.remove('show');
+            localStorage.setItem('whatsappNotificationClosed', 'true');
+        }
+    });
+
+    setInterval(() => {
+        const notificationClosed = localStorage.getItem('whatsappNotificationClosed');
+        const lastShown = localStorage.getItem('whatsappNotificationLastShown');
+        const now = Date.now();
+        
+        if (!notificationClosed && (!lastShown || now - parseInt(lastShown) > 30 * 60 * 1000)) {
+            whatsappNotification.classList.add('show');
+            localStorage.setItem('whatsappNotificationLastShown', now.toString());
+        }
+    }, 5 * 60 * 1000);
+}
+
 function initializeApp() {
     try {
         initNavigation();
         displayDailyRecommendation();
         loadWebs();
+        initWhatsAppButton();
         
         document.documentElement.style.setProperty('--scroll-padding', '85px');
+        
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
     } catch (error) {
         console.error('Error al inicializar la aplicación:', error);
     }
