@@ -24,7 +24,7 @@ const webs = [
     },
     {
         title: "Tienda Iyawo",
-        description: "Artículos religiosos y esotéricos para la Santería.",
+        description: "Equipos electrodomésticos verificados y con facturaciónal al por mayor.",
         url: "https://spoo.me/tienda_iyawo",
         image: "https://github.com/KooPages/tienda_iyawo/raw/refs/heads/main/logo.jpg",
         category: "Tienda"
@@ -51,7 +51,7 @@ const webs = [
         category: "Tienda"
     },
     {
-        title: "Dulceria Lisst",
+        title: "Dulceria Lisset",
         description: "Repostería artesanal y dulces por encargo.",
         url: "https://spoo.me/dulceria_lisset",
         image: "https://github.com/KooPages/dulceria_lisset/raw/refs/heads/main/logo.jpg",
