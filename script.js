@@ -66,20 +66,12 @@ const webs = [
         sponsored: true
     },
     {
-        title: "Vitivo Shop",
-        description: "Tienda de productos variados, especializada en alimentos.",
-        url: "https://spoo.me/vitico_shop",
-        image: "https://github.com/KooPages/vitico_shop/raw/refs/heads/main/logo.png",
-        category: "Tienda",
-        sponsored: false
-    },
-    {
         title: "Dulce Alegria",
         description: "Si buscas algo dulce entonces ven para que te alegres, a tu orden y a gusto",
         url: "https://spoo.me/Dulce_Alegria",
         image: "https://github.com/KooPages/dulce_alegria/raw/refs/heads/main/logo.jpg",
         category: "Tienda",
-        sponsored: false
+        sponsored: true
     },
 ];
 
