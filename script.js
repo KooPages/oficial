@@ -18,11 +18,10 @@ const CONFIG = {
 // ========== DATOS DE NEGOCIOS ==========
 const webs = [
     {
-        title: "Suri Nails",
-        description: "Especialistas en manicura, pedicura y uñas acrílicas.",
-        url: "https://spoo.me/suri_nails",
-        image: "https://github.com/KooPages/suri_nails/raw/refs/heads/main/logo.jpg",
-        category: "Servicio",
+        title: "La Marea",
+        description: "Tienda de productos marinos",
+        url: "https://spoo.me/la_marea",
+        image: "https://github.com/KooPages/la_marea/raw/refs/heads/main/favicon.png",
         sponsored: true
     },
     {
@@ -30,7 +29,6 @@ const webs = [
         description: "Equipos electrodomésticos verificados y con facturación al por mayor.",
         url: "https://spoo.me/tienda_iyawo",
         image: "https://github.com/KooPages/tienda_iyawo/raw/refs/heads/main/logo.jpg",
-        category: "Tienda",
         sponsored: true
     },
     {
@@ -38,7 +36,6 @@ const webs = [
         description: "Servicios profesionales de peluquería y estilismo.",
         url: "https://spoo.me/aly_salon",
         image: "https://github.com/KooPages/aly_salon/raw/refs/heads/main/logo.jpg",
-        category: "Servicio",
         sponsored: true
     },
     {
@@ -46,7 +43,6 @@ const webs = [
         description: "Variedad de cárnicos importados de primera calidad.",
         url: "https://spoo.me/carnicos_habana",
         image: "https://github.com/KooPages/carnicos_habana/raw/refs/heads/main/logo.jpg",
-        category: "Servicio",
         sponsored: true
     },
     {
@@ -54,7 +50,6 @@ const webs = [
         description: "Comercio de variedades en Santa Clara.",
         url: "https://spoo.me/de_todo_un_poco",
         image: "https://github.com/KooPages/tienda_de_todo_un_poco/raw/refs/heads/main/logo.png",
-        category: "Tienda",
         sponsored: true
     },
     {
@@ -62,7 +57,6 @@ const webs = [
         description: "Repostería artesanal y dulces por encargo.",
         url: "https://spoo.me/dulceria_lisset",
         image: "https://github.com/KooPages/dulceria_lisset/raw/refs/heads/main/logo.jpg",
-        category: "Servicio",
         sponsored: true
     },
     {
@@ -70,7 +64,6 @@ const webs = [
         description: "Si buscas algo dulce entonces ven para que te alegres, a tu orden y a gusto",
         url: "https://spoo.me/Dulce_Alegria",
         image: "https://github.com/KooPages/dulce_alegria/raw/refs/heads/main/logo.jpg",
-        category: "Tienda",
         sponsored: true
     },
 ];
