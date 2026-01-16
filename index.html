@@ -23,52 +23,525 @@
 <link rel="canonical" href="https://koopages.github.io/oficial/">
 <link rel="alternate" hreflang="es" href="https://koopages.github.io/oficial/">
 <link rel="alternate" hreflang="en" href="https://koopages.github.io/oficial/en/">
-<link rel="icon" href="favicon.jpg">
-<link rel="apple-touch-icon" href="favicon.jpg">
-<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<title>KOOPAGES - Plataforma de Negocios Patrocinados por KOOWEXA</title>
-<meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
-<meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE">
-<meta name="y_key" content="YOUR_YAHOO_VERIFICATION_CODE">
-<script type="application/ld+json">
-{
-"@context":"https://schema.org",
-"@graph":[
-{
-"@type":"WebSite",
-"name":"KOOPAGES",
-"description":"Plataforma corporativa de negocios patrocinados por KOOWEXA",
-"url":"https://koopages.github.io/oficial/",
-"inLanguage":"es",
-"potentialAction":{"@type":"SearchAction","target":"https://koopages.github.io/oficial/#negocios","query-input":"required name=search_term_string"}
-},
-{
-"@type":"Organization",
-"name":"KOOPAGES",
-"url":"https://koopages.github.io/oficial/",
-"logo":"https://koopages.github.io/oficial/favicon.jpg",
-"sameAs":["https://koowexa.github.io/oficial/"],
-"description":"Plataforma de negocios patrocinados y asesorados"
-},
-{
-"@type":"BreadcrumbList",
-"itemListElement":[
-{"@type":"ListItem","position":1,"name":"Inicio","item":"https://koopages.github.io/oficial/#inicio"},
-{"@type":"ListItem","position":2,"name":"Negocios","item":"https://koopages.github.io/oficial/#negocios"},
-{"@type":"ListItem","position":3,"name":"Información","item":"https://koopages.github.io/oficial/#info"}
-]
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiS09PUEFHRVMgLSBQbGF0YWZvcm1hIGRlIE5lZ29jaW9zIiwic2hvcnRfbmFtZSI6IktPT1BBR0VTIiwiZGVzY3JpcHRpb24iOiJQbGF0YWZvcm1hIGNvcnBvcmF0aXZhIGRlIG5lZ29jaW9zIHBhdHJvY2luYWRvcyBwb3IgS09PV0VYQSIsInN0YXJ0X3VybCI6Ii9vZmljaWFsLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNGODhBQ0MiLCJ0aGVtZV9jb2xvciI6IiMxQTIzN0UiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXpOVEFnTVRJd0lqNEtJQ0FnSUR4emRHOXdJRzltWm5ObGREMGlNU0lnYzNSeWIydGxMWGRwWkhSb1BTSXhNQ0lnYzNSeWIydGxQU0owYVdacFkyOWtaU0lnZG1Gc2RXVW9LVHNOQ2p3dmMzWm5QZ289Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifSx7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F6TlRBZ01USXdJajRLSUNBZ0lEeHpkRzl3SUc5bVpuTmxkRDBpTVNJZ2MzUnliMnRsTFhkcFpIUm9QU0l4TUNJZ2MzUnliMnRsUFNKMGFXWnBZMjl0WlNJZ2RtRnNkV1VvS1RzTkNqd3ZjM1puUGdvPSIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dLCJjYXRlZ29yaWVzIjpbImJ1c2luZXNzIiwic2hvcHBpbmciXSwibGFuZyI6ImVzIiwiZGlyIjoibHRyIn0=">
+<title>KOOPAGES - Plataforma</title>
+<style>
+:root {
+    --primary: #0F1C3F;
+    --secondary: #0052CC;
+    --accent: #FF6B35;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8F9FA;
+    --text-primary: #212529;
+    --text-secondary: #495057;
+    --border-color: #DEE2E6;
+    --border-radius: 8px;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-xxl: 3rem;
+    --font-primary: 'Inter', sans-serif;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.5rem;
+    --font-size-xxxl: 2rem;
+    --container-width: 1200px;
+    --header-height: 70px;
+    --z-fixed: 1030;
 }
-]
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
-</script>
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    z-index: var(--z-fixed);
+    height: var(--header-height);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0F1C3F 0%, #0052CC 100%);
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--font-primary);
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--primary);
+}
+
+.koowexa-emblem {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.koowexa-emblem a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--secondary);
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.emblem-text {
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.emblem-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.nav ul {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--secondary);
+    background-color: var(--bg-secondary);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    margin-top: var(--header-height);
+    flex: 1;
+}
+
+.section {
+    display: none;
+    padding: var(--space-xxl) 0;
+}
+
+.section.active {
+    display: block;
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.daily-recommendation {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.daily-recommendation h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--secondary);
+}
+
+.recommendation-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--border-color);
+}
+
+.recommendation-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.recommendation-content h4 {
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.sponsored-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: var(--space-md);
+}
+
+.sponsored-badge.active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.sponsored-badge.inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.recommendation-link {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: var(--space-md);
+    transition: background-color 0.3s ease;
+}
+
+.recommendation-link:hover {
+    background-color: #0041a8;
+}
+
+.webs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.web-card {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.web-card:hover {
+    transform: translateY(-5px);
+}
+
+.web-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-md);
+}
+
+.web-card h3 {
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+}
+
+.web-card p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    flex: 1;
+}
+
+.web-card-link {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.web-card-link:hover {
+    background-color: #0041a8;
+}
+
+.info-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.info-content p {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.tech-item {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    text-align: center;
+}
+
+.tech-item h3 {
+    color: var(--secondary);
+    margin-bottom: var(--space-md);
+}
+
+.tech-item p {
+    color: var(--text-secondary);
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.whatsapp-notification {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    padding: var(--space-lg);
+    display: none;
+    border: 1px solid var(--border-color);
+}
+
+.whatsapp-notification.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-notification {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.whatsapp-notification h4 {
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+}
+
+.whatsapp-notification p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-md);
+}
+
+.whatsapp-btn {
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-btn img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 60px;
+        --space-xxl: 2rem;
+    }
+    
+    .koowexa-emblem {
+        display: none;
+    }
+    
+    .menu-toggle {
+        display: flex;
+    }
+    
+    .nav {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: var(--space-md);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+    }
+    
+    .nav.active {
+        display: block;
+    }
+    
+    .nav ul {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .nav-link {
+        display: block;
+        padding: var(--space-md);
+    }
+    
+    .webs-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-stack {
+        grid-template-columns: 1fr;
+    }
+    
+    .whatsapp-notification {
+        width: calc(100vw - 40px);
+        right: -80px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .webs-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--space-md);
+    }
+    
+    .section h2 {
+        font-size: 1.75rem;
+    }
+    
+    .recommendation-card {
+        padding: var(--space-md);
+    }
+}
+</style>
 </head>
 <body>
 <header class="header">
 <div class="container">
 <a href="#inicio" class="logo">
-<img src="favicon.jpg" alt="KOOPAGES" class="logo-img" width="50" height="50">
+<div class="logo-img">K</div>
 <h1>KOOPAGES</h1>
 </a>
 <div class="koowexa-emblem">
@@ -132,9 +605,351 @@
 <p>Recibe noticias exclusivas, ofertas especiales y conéctate con otros negocios patrocinados.</p>
 </div>
 <div class="whatsapp-btn" id="whatsappBtn">
-<img src="favicon.jpg" alt="KOOPAGES WhatsApp" width="35" height="35">
+<div class="logo-img" style="width:35px;height:35px;font-size:16px;">K</div>
 </div>
 </div>
-<script src="script.js" defer></script>
+<script>
+const CONFIG = {
+    site: {
+        name: 'KOOPAGES',
+        description: 'Plataforma de negocios patrocinados',
+        url: 'https://koopages.github.io/oficial/',
+        author: 'KOOPAGES',
+        year: 2025
+    },
+    navigation: {
+        defaultSection: 'inicio',
+        sections: ['inicio', 'negocios', 'info'],
+        smoothScroll: false,
+        updateURL: true
+    }
+};
+
+const webs = [
+    {
+        title: "La Marea",
+        description: "Tienda de productos marinos",
+        url: "https://spoo.me/la_marea",
+        image: "https://github.com/KooPages/la_marea/raw/refs/heads/main/favicon.png",
+        sponsored: true
+    },
+    {
+        title: "Tienda Iyawo",
+        description: "Equipos electrodomésticos verificados y con facturación al por mayor.",
+        url: "https://spoo.me/tienda_iyawo",
+        image: "https://github.com/KooPages/tienda_iyawo/raw/refs/heads/main/logo.jpg",
+        sponsored: true
+    },
+    {
+        title: "Aly Salon",
+        description: "Servicios profesionales de peluquería y estilismo.",
+        url: "https://spoo.me/aly_salon",
+        image: "https://github.com/KooPages/aly_salon/raw/refs/heads/main/logo.jpg",
+        sponsored: true
+    },
+    {
+        title: "Carnicos Habana",
+        description: "Variedad de cárnicos importados de primera calidad.",
+        url: "https://spoo.me/carnicos_habana",
+        image: "https://github.com/KooPages/carnicos_habana/raw/refs/heads/main/logo.jpg",
+        sponsored: true
+    },
+    {
+        title: "Tienda De Todo Un Poco",
+        description: "Comercio de variedades en Santa Clara.",
+        url: "https://spoo.me/de_todo_un_poco",
+        image: "https://github.com/KooPages/tienda_de_todo_un_poco/raw/refs/heads/main/logo.png",
+        sponsored: true
+    },
+    {
+        title: "Dulceria Lisset",
+        description: "Repostería artesanal y dulces por encargo.",
+        url: "https://spoo.me/dulceria_lisset",
+        image: "https://github.com/KooPages/dulceria_lisset/raw/refs/heads/main/logo.jpg",
+        sponsored: true
+    },
+    {
+        title: "Dulce Alegria",
+        description: "Si buscas algo dulce entonces ven para que te alegres, a tu orden y a gusto",
+        url: "https://spoo.me/Dulce_Alegria",
+        image: "https://github.com/KooPages/dulce_alegria/raw/refs/heads/main/logo.jpg",
+        sponsored: true
+    },
+];
+
+function getDailyRecommendation() {
+    const today = new Date().toISOString().slice(0, 10);
+    const storageKey = 'dailyRecommendationDate';
+    const recommendationKey = 'dailyRecommendationWeb';
+    const lastRecommendationDate = localStorage.getItem(storageKey);
+    let recommendedWeb = JSON.parse(localStorage.getItem(recommendationKey));
+    if (lastRecommendationDate === today && recommendedWeb) {
+        return recommendedWeb;
+    }
+    const businessWebs = webs.filter(web => web.title && web.url !== '#');
+    if (businessWebs.length === 0) {
+        return null;
+    }
+    const randomIndex = Math.floor(Math.random() * businessWebs.length);
+    recommendedWeb = businessWebs[randomIndex];
+    localStorage.setItem(storageKey, today);
+    localStorage.setItem(recommendationKey, JSON.stringify(recommendedWeb));
+    return recommendedWeb;
+}
+
+function displayDailyRecommendation() {
+    const recommendation = getDailyRecommendation();
+    const container = document.getElementById('dailyRecommendation');
+    if (!container) return;
+    if (recommendation) {
+        const title = recommendation.title;
+        const url = recommendation.url;
+        const image = recommendation.image || 'https://via.placeholder.com/300x300/1A237E/FFFFFF?text=KOOPAGES';
+        const sponsoredStatus = recommendation.sponsored ? 
+            '<span class="sponsored-badge active">✓ Está haciendo patrocinado</span>' : 
+            '<span class="sponsored-badge inactive">✗ Ya no está haciendo patrocinado</span>';
+        const cardHTML = `
+            <div class="recommendation-card" itemscope itemtype="http://schema.org/LocalBusiness">
+                <img src="${image}" alt="${title}" class="recommendation-img" itemprop="image" 
+                     onerror="this.src='https://via.placeholder.com/300x300/1A237E/FFFFFF?text=KOOPAGES';">
+                <div class="recommendation-content">
+                    <h4 itemprop="name">${title}</h4>
+                    ${sponsoredStatus}
+                    <p itemprop="description">${recommendation.description || 'Negocio recomendado por KOOPAGES'}</p>
+                    <a href="${url}" class="recommendation-link" target="_blank" rel="noopener noreferrer" itemprop="url">
+                        Visitar Ahora
+                    </a>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    } else {
+        container.innerHTML += '<p>No hay negocios disponibles para recomendar hoy.</p>';
+    }
+}
+
+function loadWebs() {
+    const container = document.getElementById('websContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    if (!Array.isArray(webs) || webs.length === 0) {
+        container.innerHTML = '<p>No hay negocios disponibles en este momento.</p>';
+        return;
+    }
+    const fragment = document.createDocumentFragment();
+    webs.forEach((web, index) => {
+        if (!web.title || web.url === '#') return;
+        const title = web.title;
+        const url = web.url;
+        const image = web.image || 'https://via.placeholder.com/150x150/1A237E/FFFFFF?text=KOOPAGES';
+        const sponsoredStatus = web.sponsored ? 
+            '<span class="sponsored-badge active">✓ Esta Patrocinado</span>' : 
+            '<span class="sponsored-badge inactive">✗ Sin Patrocinio</span>';
+        const webCard = document.createElement('article');
+        webCard.className = 'web-card';
+        webCard.setAttribute('itemscope', '');
+        webCard.setAttribute('itemtype', 'http://schema.org/LocalBusiness');
+        webCard.innerHTML = `
+            <meta itemprop="position" content="${index + 1}">
+            <img src="${image}" alt="${title}" loading="lazy" width="100" height="100" itemprop="image" 
+                 onerror="this.src='https://via.placeholder.com/150x150/1A237E/FFFFFF?text=KOOPAGES';">
+            <h3 itemprop="name">${title}</h3>
+            ${sponsoredStatus}
+            <p itemprop="description" style="display:none;">${web.description || 'Negocio patrocinado por KOOPAGES'}</p>
+            <meta itemprop="category" content="${web.category}">
+            <a href="${url}" class="web-card-link" target="_blank" rel="noopener noreferrer" itemprop="url">
+                Visitar Plataforma
+            </a>
+        `;
+        fragment.appendChild(webCard);
+    });
+    container.appendChild(fragment);
+}
+
+function initNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.section');
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.nav');
+    if (!navLinks.length || !sections.length || !menuToggle || !nav) return;
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            navigateToSection(targetId, navLinks, sections, nav, menuToggle);
+        });
+    });
+    menuToggle.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        nav.classList.toggle('active');
+    });
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash && CONFIG.navigation.sections.includes(initialHash)) {
+        const initialLink = document.querySelector(`.nav-link[href="#${initialHash}"]`);
+        if (initialLink) setTimeout(() => initialLink.click(), 100);
+    }
+}
+
+function navigateToSection(targetId, navLinks, sections, nav, menuToggle) {
+    if (!targetId || !CONFIG.navigation.sections.includes(targetId)) return;
+    navLinks.forEach(l => {
+        l.classList.remove('active');
+        l.removeAttribute('aria-current');
+    });
+    const activeLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+        activeLink.setAttribute('aria-current', 'page');
+    }
+    sections.forEach(section => {
+        section.classList.remove('active');
+        section.setAttribute('aria-hidden', 'true');
+        if (section.id === targetId) {
+            section.classList.add('active');
+            section.setAttribute('aria-hidden', 'false');
+        }
+    });
+    if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }
+    if (CONFIG.navigation.updateURL && window.history && window.history.pushState) {
+        history.pushState(null, null, `#${targetId}`);
+    }
+}
+
+function initWhatsAppButton() {
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const whatsappNotification = document.getElementById('whatsappNotification');
+    const closeNotification = document.getElementById('closeNotification');
+    const whatsappGroupURL = 'https://whatsapp.com/channel/0029Vb72ukK4IBhLIj0eJc3p';
+    if (!whatsappBtn || !whatsappNotification) return;
+    setTimeout(() => {
+        const notificationClosed = localStorage.getItem('whatsappNotificationClosed');
+        if (!notificationClosed) {
+            whatsappNotification.classList.add('show');
+        }
+    }, 3000);
+    if (closeNotification) {
+        closeNotification.addEventListener('click', function(e) {
+            e.stopPropagation();
+            whatsappNotification.classList.remove('show');
+            localStorage.setItem('whatsappNotificationClosed', 'true');
+        });
+    }
+    whatsappBtn.addEventListener('click', function() {
+        whatsappNotification.classList.remove('show');
+        localStorage.setItem('whatsappNotificationClosed', 'true');
+        window.open(whatsappGroupURL, '_blank', 'noopener,noreferrer');
+    });
+}
+
+function initializeSecurity() {
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+            e.preventDefault();
+            return false;
+        }
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+    });
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+    Object.defineProperty(document, 'designMode', {
+        set: function() {},
+        get: function() { return 'off'; }
+    });
+}
+
+function initializeApp() {
+    initializeSecurity();
+    initNavigation();
+    displayDailyRecommendation();
+    loadWebs();
+    initWhatsAppButton();
+}
+
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<url>
+<loc>https://koopages.github.io/oficial/</loc>
+<lastmod>2025-12-22</lastmod>
+<changefreq>daily</changefreq>
+<priority>1.0</priority>
+<xhtml:link rel="alternate" hreflang="es" href="https://koopages.github.io/oficial/"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://koopages.github.io/oficial/en/"/>
+</url>
+<url>
+<loc>https://koopages.github.io/oficial/#negocios</loc>
+<lastmod>2025-12-22</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.9</priority>
+</url>
+<url>
+<loc>https://koopages.github.io/oficial/#info</loc>
+<lastmod>2025-12-22</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.8</priority>
+</url>
+</urlset>`;
+
+const robotsTxt = `User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Sitemap: https://koopages.github.io/oficial/sitemap.xml
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2`;
+</script>
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@graph":[
+{
+"@type":"WebSite",
+"name":"KOOPAGES",
+"description":"Plataforma corporativa de negocios patrocinados por KOOWEXA",
+"url":"https://koopages.github.io/oficial/",
+"inLanguage":"es",
+"potentialAction":{"@type":"SearchAction","target":"https://koopages.github.io/oficial/#negocios","query-input":"required name=search_term_string"}
+},
+{
+"@type":"Organization",
+"name":"KOOPAGES",
+"url":"https://koopages.github.io/oficial/",
+"logo":"data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHJ4PSI4IiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJJbnRlciwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiPks8L3RleHQ+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyIiB4MT0iMCIgeTE9IjAiIHgyPSI1MCIgeTI9IjUwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzBGMUMzRiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwNTJDQyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==",
+"sameAs":["https://koowexa.github.io/oficial/"],
+"description":"Plataforma de negocios patrocinados y asesorados"
+},
+{
+"@type":"BreadcrumbList",
+"itemListElement":[
+{"@type":"ListItem","position":1,"name":"Inicio","item":"https://koopages.github.io/oficial/#inicio"},
+{"@type":"ListItem","position":2,"name":"Negocios","item":"https://koopages.github.io/oficial/#negocios"},
+{"@type":"ListItem","position":3,"name":"Información","item":"https://koopages.github.io/oficial/#info"}
+]
+}
+]
+}
+</script>
 </body>
 </html>
