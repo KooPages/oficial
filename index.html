@@ -8,7 +8,16 @@
 <meta name="color-scheme" content="light dark">
 <link rel="manifest" href="data:application/manifest+json,{}">
 <title>KOOPAGES - Plataforma</title>
+
+<!-- Favicon y logos SVG -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>" type="image/svg+xml">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>">
+
+<!-- PWA Manifest actualizado -->
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22KOOPAGES%22%2C%22short_name%22%3A%22KOOPAGES%22%2C%22description%22%3A%22Plataforma%20de%20negocios%20patrocinados%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F1C3F%22%2C%22theme_color%22%3A%22%230F1C3F%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjE1IiBmaWxsPSIjMEYxQzNGIi8%2BPHRleHQgeD0iNTAiIHk9IjY1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI%2BSzwvdGV4dD48L3N2Zz4%3D%22%2C%22sizes%22%3A%22MTAweDEwMCUyNzk2eDk2JTJNNzJ4NzIlMk02NHg2NCUyTTQ4eDQ4JTJNNjR4NjQlMk0xNDR4MTQ0JTI5MjB4MzIlMk00OTZ4NDk2JTI5MjR4MjQlMk00OTJ4NDkyJTI5%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+
 <style>
+/* Estilos CSS existentes se mantienen igual */
 :root {
     --primary: #0F1C3F;
     --secondary: #0052CC;
@@ -286,6 +295,58 @@ body {
     border-top: 1px solid var(--border);
 }
 
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.footer-link {
+    color: var(--text-alt);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.footer-link:hover {
+    color: var(--secondary);
+}
+
+.footer-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.install-btn {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.install-btn:hover {
+    background: color-mix(in srgb, var(--secondary) 90%, black);
+    transform: translateY(-1px);
+}
+
 .back-to-top {
     position: fixed;
     bottom: 20px;
@@ -351,6 +412,11 @@ body {
     .business-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 0.75rem;
     }
 }
 
@@ -423,7 +489,35 @@ body {
 
 <footer class="footer" role="contentinfo">
 <div class="container">
+<div class="footer-content">
 <p>KOOPAGES © <span id="currentYear">2025</span> - Plataforma de negocios patrocinados</p>
+<div class="footer-links">
+<a href="https://koopages.github.io/oficial/" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Sitio Oficial KOOPAGES">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8m-1 11l3.6-3.6-3.6-3.6v2.6H7v2h4v2.6z"/>
+</svg>
+<span>Sitio Oficial</span>
+</a>
+<a href="https://whatsapp.com/channel/0029Vb72ukK4IBhLIj0eJc3p" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"/>
+</svg>
+<span>WhatsApp Channel</span>
+</a>
+<a href="https://www.facebook.com/share/1G9EU32MAQ/" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+<path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02z"/>
+</svg>
+<span>Facebook</span>
+</a>
+</div>
+<button class="install-btn" id="installBtn" aria-label="Instalar aplicación">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+<path fill="currentColor" d="M10 3H14V11H18L12 17L6 11H10V3Z"/>
+</svg>
+Instalar App
+</button>
+</div>
 </div>
 </footer>
 
@@ -442,14 +536,21 @@ const CONFIG = {
         { title: "Toledo Shop", desc: "Electrodomésticos y tecnología para el hogar", url: "https://spoo.me/toledoshop", initial: "T-S" },
         { title: "Phone Store", desc: "Móviles, accesorios y soluciones tecnológicas", url: "https://spoo.me/phone_store", initial: "P-S" }
     ],
-    lazyLoad: true,
-    debounceDelay: 100,
-    scrollThreshold: 300
+    pwa: {
+        name: "KOOPAGES",
+        shortName: "KOOPAGES",
+        description: "Plataforma de negocios patrocinados",
+        startUrl: "/",
+        display: "standalone",
+        themeColor: "#0F1C3F",
+        backgroundColor: "#0F1C3F"
+    }
 };
 
 class PlatformManager {
     constructor() {
         this.currentSection = 'negocios';
+        this.deferredPrompt = null;
         this.init();
     }
 
@@ -460,6 +561,8 @@ class PlatformManager {
         this.setupCurrentYear();
         this.setupPerformance();
         this.setupObservers();
+        this.setupPWA();
+        this.setupInstallButton();
     }
 
     renderBusinesses() {
@@ -559,7 +662,7 @@ class PlatformManager {
         if (!backBtn) return;
 
         const toggleButton = () => {
-            backBtn.style.display = window.scrollY > CONFIG.scrollThreshold ? 'flex' : 'none';
+            backBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
         };
 
         window.addEventListener('scroll', () => {
@@ -587,22 +690,16 @@ class PlatformManager {
         window.addEventListener('load', () => {
             requestAnimationFrame(() => {
                 document.body.style.opacity = '1';
-                if ('requestIdleCallback' in window) {
-                    requestIdleCallback(() => {
-                        this.preloadImages();
-                    });
-                }
             });
         });
     }
 
     setupObservers() {
-        if ('IntersectionObserver' in window && CONFIG.lazyLoad) {
+        if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('loaded');
-                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
@@ -613,30 +710,111 @@ class PlatformManager {
         }
     }
 
-    preloadImages() {
-        const images = [];
-        document.querySelectorAll('img').forEach(img => {
-            if (img.dataset.src) {
-                images.push(new Promise((resolve) => {
-                    const image = new Image();
-                    image.src = img.dataset.src;
-                    image.onload = resolve;
-                }));
+    setupPWA() {
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'koopages-v1.0';
+                    const urlsToCache = [
+                        './',
+                        './index.html',
+                        './?utm_source=pwa'
+                    ];
+
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => response || fetch(event.request))
+                        );
+                    });
+
+                    self.addEventListener('activate', event => {
+                        event.waitUntil(
+                            caches.keys().then(cacheNames => {
+                                return Promise.all(
+                                    cacheNames.map(cacheName => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(registration => {
+                        console.log('Service Worker registrado:', registration.scope);
+                        registration.update();
+                    })
+                    .catch(error => {
+                        console.log('Error en Service Worker:', error);
+                    });
+            });
+        }
+
+        // Before Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.deferredPrompt = e;
+            const installBtn = document.getElementById('installBtn');
+            if (installBtn) {
+                installBtn.style.display = 'inline-flex';
             }
         });
-        return Promise.all(images);
+
+        // App Installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA instalado exitosamente');
+            this.deferredPrompt = null;
+            const installBtn = document.getElementById('installBtn');
+            if (installBtn) {
+                installBtn.style.display = 'none';
+            }
+        });
+    }
+
+    setupInstallButton() {
+        const installBtn = document.getElementById('installBtn');
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (this.deferredPrompt) {
+                    this.deferredPrompt.prompt();
+                    const { outcome } = await this.deferredPrompt.userChoice;
+                    console.log(`Resultado de instalación: ${outcome}`);
+                    this.deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                } else {
+                    // Redirigir a la página oficial si no se puede instalar
+                    window.open('https://koopages.github.io/oficial/', '_blank');
+                }
+            });
+
+            // Ocultar botón si ya está instalado
+            if (window.matchMedia('(display-mode: standalone)').matches || 
+                window.navigator.standalone === true) {
+                installBtn.style.display = 'none';
+            }
+        }
     }
 }
 
+// Inicializar la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     new PlatformManager();
 });
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
-    });
-}
 </script>
 </body>
 </html>
