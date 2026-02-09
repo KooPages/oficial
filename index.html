@@ -8,16 +8,10 @@
 <meta name="color-scheme" content="light dark">
 <link rel="manifest" href="data:application/manifest+json,{}">
 <title>KOOPAGES - Plataforma</title>
-
-<!-- Favicon y logos SVG -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>" type="image/svg+xml">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>">
-
-<!-- PWA Manifest actualizado -->
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22KOOPAGES%22%2C%22short_name%22%3A%22KOOPAGES%22%2C%22description%22%3A%22Plataforma%20de%20negocios%20patrocinados%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F1C3F%22%2C%22theme_color%22%3A%22%230F1C3F%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjE1IiBmaWxsPSIjMEYxQzNGIi8%2BPHRleHQgeD0iNTAiIHk9IjY1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI%2BSzwvdGV4dD48L3N2Zz4%3D%22%2C%22sizes%22%3A%22MTAweDEwMCUyNzk2eDk2JTJNNzJ4NzIlMk02NHg2NCUyTTQ4eDQ4JTJNNjR4NjQlMk0xNDR4MTQ0JTI5MjB4MzIlMk00OTZ4NDk2JTI5MjR4MjQlMk00OTJ4NDkyJTI5%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
-
 <style>
-/* Estilos CSS existentes se mantienen igual */
 :root {
     --primary: #0F1C3F;
     --secondary: #0052CC;
@@ -386,6 +380,31 @@ body {
     to { transform: rotate(360deg); }
 }
 
+.notification-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.notification-btn:hover {
+    background: color-mix(in srgb, var(--accent) 90%, black);
+    transform: translateY(-1px);
+}
+
+.notification-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .menu-toggle {
         display: flex;
@@ -511,19 +530,25 @@ body {
 <span>Facebook</span>
 </a>
 </div>
+<div class="notification-buttons">
 <button class="install-btn" id="installBtn" aria-label="Instalar aplicación">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
 <path fill="currentColor" d="M10 3H14V11H18L12 17L6 11H10V3Z"/>
 </svg>
 Instalar App
 </button>
+<button class="notification-btn" id="notificationBtn" aria-label="Activar notificaciones">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+<path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+</svg>
+<span id="notificationText">Activar Notificaciones</span>
+</button>
+</div>
 </div>
 </div>
 </footer>
 
 <script>
-'use strict';
-
 const CONFIG = {
     businesses: [
         { title: "La Marea", desc: "Tienda de productos marinos frescos", url: "https://spoo.me/la_marea", initial: "🚫" },
@@ -551,6 +576,9 @@ class PlatformManager {
     constructor() {
         this.currentSection = 'negocios';
         this.deferredPrompt = null;
+        this.notificationPermission = null;
+        this.lastVisitKey = 'koopages_last_visit';
+        this.notificationEnabledKey = 'koopages_notifications';
         this.init();
     }
 
@@ -563,6 +591,8 @@ class PlatformManager {
         this.setupObservers();
         this.setupPWA();
         this.setupInstallButton();
+        this.setupNotifications();
+        this.checkLastVisit();
     }
 
     renderBusinesses() {
@@ -711,7 +741,6 @@ class PlatformManager {
     }
 
     setupPWA() {
-        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 const swCode = `
@@ -749,6 +778,27 @@ class PlatformManager {
                             })
                         );
                     });
+
+                    self.addEventListener('push', event => {
+                        const options = {
+                            body: event.data.text(),
+                            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
+                            badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
+                            vibrate: [200, 100, 200],
+                            data: { url: '/' }
+                        };
+                        
+                        event.waitUntil(
+                            self.registration.showNotification('KOOPAGES', options)
+                        );
+                    });
+
+                    self.addEventListener('notificationclick', event => {
+                        event.notification.close();
+                        event.waitUntil(
+                            clients.openWindow('/')
+                        );
+                    });
                 `;
 
                 const blob = new Blob([swCode], { type: 'application/javascript' });
@@ -756,7 +806,6 @@ class PlatformManager {
 
                 navigator.serviceWorker.register(swUrl)
                     .then(registration => {
-                        console.log('Service Worker registrado:', registration.scope);
                         registration.update();
                     })
                     .catch(error => {
@@ -765,7 +814,6 @@ class PlatformManager {
             });
         }
 
-        // Before Install Prompt
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             this.deferredPrompt = e;
@@ -775,9 +823,7 @@ class PlatformManager {
             }
         });
 
-        // App Installed
         window.addEventListener('appinstalled', () => {
-            console.log('PWA instalado exitosamente');
             this.deferredPrompt = null;
             const installBtn = document.getElementById('installBtn');
             if (installBtn) {
@@ -793,25 +839,154 @@ class PlatformManager {
                 if (this.deferredPrompt) {
                     this.deferredPrompt.prompt();
                     const { outcome } = await this.deferredPrompt.userChoice;
-                    console.log(`Resultado de instalación: ${outcome}`);
                     this.deferredPrompt = null;
                     installBtn.style.display = 'none';
                 } else {
-                    // Redirigir a la página oficial si no se puede instalar
                     window.open('https://koopages.github.io/oficial/', '_blank');
                 }
             });
 
-            // Ocultar botón si ya está instalado
             if (window.matchMedia('(display-mode: standalone)').matches || 
                 window.navigator.standalone === true) {
                 installBtn.style.display = 'none';
             }
         }
     }
+
+    setupNotifications() {
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationText = document.getElementById('notificationText');
+        
+        if (!('Notification' in window)) {
+            notificationBtn.style.display = 'none';
+            return;
+        }
+
+        this.notificationPermission = Notification.permission;
+        
+        if (this.notificationPermission === 'granted') {
+            this.updateNotificationButton(true);
+            this.scheduleDailyNotification();
+        } else if (this.notificationPermission === 'denied') {
+            this.updateNotificationButton(false);
+        }
+
+        notificationBtn.addEventListener('click', () => {
+            if (this.notificationPermission === 'granted') {
+                this.disableNotifications();
+            } else {
+                this.requestNotificationPermission();
+            }
+        });
+    }
+
+    async requestNotificationPermission() {
+        try {
+            const permission = await Notification.requestPermission();
+            this.notificationPermission = permission;
+            
+            if (permission === 'granted') {
+                this.updateNotificationButton(true);
+                localStorage.setItem(this.notificationEnabledKey, 'true');
+                this.scheduleDailyNotification();
+                this.showNotification('¡Notificaciones activadas!', 'Te recordaremos visitar KOOPAGES regularmente.');
+            } else {
+                this.updateNotificationButton(false);
+                localStorage.removeItem(this.notificationEnabledKey);
+            }
+        } catch (error) {
+            console.error('Error al solicitar permiso:', error);
+        }
+    }
+
+    disableNotifications() {
+        localStorage.removeItem(this.notificationEnabledKey);
+        this.updateNotificationButton(false);
+        this.showNotification('Notificaciones desactivadas', 'Ya no recibirás recordatorios diarios.');
+    }
+
+    updateNotificationButton(enabled) {
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationText = document.getElementById('notificationText');
+        
+        if (enabled) {
+            notificationBtn.classList.remove('disabled');
+            notificationText.textContent = 'Desactivar Notificaciones';
+        } else {
+            notificationBtn.classList.add('disabled');
+            notificationText.textContent = 'Activar Notificaciones';
+        }
+    }
+
+    scheduleDailyNotification() {
+        if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+        
+        if (this.notificationPermission === 'granted') {
+            this.setupPeriodicSync();
+        }
+    }
+
+    setupPeriodicSync() {
+        if ('periodicSync' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.periodicSync.register('daily-reminder', {
+                    minInterval: 24 * 60 * 60 * 1000
+                }).then(() => {
+                    console.log('Sincronización periódica registrada');
+                }).catch(error => {
+                    console.log('Error al registrar sincronización:', error);
+                });
+            });
+        }
+    }
+
+    showNotification(title, body) {
+        if (this.notificationPermission !== 'granted') return;
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.showNotification(title, {
+                    body: body,
+                    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
+                    badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
+                    vibrate: [200, 100, 200],
+                    tag: 'koopages-reminder'
+                });
+            });
+        } else {
+            new Notification(title, {
+                body: body,
+                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>'
+            });
+        }
+    }
+
+    checkLastVisit() {
+        const lastVisit = localStorage.getItem(this.lastVisitKey);
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        if (!lastVisit) {
+            localStorage.setItem(this.lastVisitKey, now.toString());
+            return;
+        }
+
+        const timeSinceLastVisit = now - parseInt(lastVisit);
+        
+        if (timeSinceLastVisit > oneDay) {
+            if (this.notificationPermission === 'granted' && 
+                localStorage.getItem(this.notificationEnabledKey) === 'true') {
+                this.showNotification(
+                    '¡Te extrañamos en KOOPAGES!',
+                    'Han pasado más de 24 horas desde tu última visita. ¡Descubre nuevos negocios y productos!'
+                );
+            }
+        }
+
+        localStorage.setItem(this.lastVisitKey, now.toString());
+    }
 }
 
-// Inicializar la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     new PlatformManager();
 });
