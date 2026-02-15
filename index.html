@@ -6,11 +6,9 @@
 <meta name="description" content="KOOPAGES - Plataforma de negocios patrocinados por KOOWEXA">
 <meta name="theme-color" content="#0F1C3F">
 <meta name="color-scheme" content="light dark">
-<link rel="manifest" href="data:application/manifest+json,{}">
 <title>KOOPAGES - Plataforma</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>" type="image/svg+xml">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230F1C3F'/><text x='50' y='65' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'>K</text></svg>">
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22KOOPAGES%22%2C%22short_name%22%3A%22KOOPAGES%22%2C%22description%22%3A%22Plataforma%20de%20negocios%20patrocinados%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F1C3F%22%2C%22theme_color%22%3A%22%230F1C3F%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjE1IiBmaWxsPSIjMEYxQzNGIi8%2BPHRleHQgeD0iNTAiIHk9IjY1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI%2BSzwvdGV4dD48L3N2Zz4%3D%22%2C%22sizes%22%3A%22MTAweDEwMCUyNzk2eDk2JTJNNzJ4NzIlMk02NHg2NCUyTTQ4eDQ4JTJNNjR4NjQlMk0xNDR4MTQ0JTI5MjB4MzIlMk00OTZ4NDk2JTI5MjR4MjQlMk00OTJ4NDkyJTI5%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <style>
 :root {
     --primary: #0F1C3F;
@@ -21,10 +19,12 @@
     --text: #212529;
     --text-alt: #495057;
     --border: #DEE2E6;
-    --radius: 8px;
+    --radius: 12px;
     --font: system-ui, -apple-system, 'Segoe UI', 'Inter', sans-serif;
-    --shadow: 0 2px 8px rgba(0,0,0,0.08);
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+    --shadow-lg: 0 16px 32px rgba(0,0,0,0.12);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,7 +36,9 @@
         --text: #E8EAED;
         --text-alt: #B0B3B8;
         --border: #3C4043;
-        --shadow: 0 2px 8px rgba(0,0,0,0.3);
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+        --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+        --shadow-lg: 0 16px 32px rgba(0,0,0,0.5);
     }
 }
 
@@ -56,13 +58,27 @@ html {
 
 body {
     font-family: var(--font);
-    line-height: 1.5;
+    line-height: 1.6;
     color: var(--text);
     background: var(--bg);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overscroll-behavior-y: none;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(0,82,204,0.03) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255,107,53,0.03) 0%, transparent 30%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .container {
@@ -79,7 +95,7 @@ body {
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(10px);
-    background-color: rgba(var(--bg), 0.9);
+    background-color: rgba(var(--bg), 0.8);
 }
 
 .header-content {
@@ -87,7 +103,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    min-height: 64px;
+    min-height: 70px;
 }
 
 .logo {
@@ -97,12 +113,18 @@ body {
     text-decoration: none;
     color: var(--primary);
     font-weight: 700;
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    letter-spacing: -0.01em;
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.02);
 }
 
 .logo-icon {
-    width: clamp(36px, 5vw, 40px);
-    height: clamp(36px, 5vw, 40px);
+    width: clamp(40px, 5vw, 44px);
+    height: clamp(40px, 5vw, 44px);
     border-radius: var(--radius);
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: grid;
@@ -110,21 +132,41 @@ body {
     color: white;
     font-weight: 700;
     flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
 }
 
 .nav {
     display: flex;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(0.5rem, 2vw, 1rem);
 }
 
 .nav-link {
     color: var(--text);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius);
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
     transition: var(--transition);
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--secondary);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 80%;
 }
 
 .nav-link.active {
@@ -136,46 +178,70 @@ body {
     display: none;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     align-items: center;
     justify-content: center;
     color: var(--text);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.menu-toggle:hover {
+    background: var(--bg-alt);
 }
 
 .main {
     flex: 1;
-    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+    padding: clamp(2rem, 5vw, 3rem) 0;
 }
 
 .section {
     display: none;
-    animation: fadeIn 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
 }
 
 .section.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .section-title {
-    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: clamp(2rem, 5vw, 2.5rem);
     color: var(--primary);
     text-align: center;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: 700;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary), var(--accent));
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
 }
 
 .business-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-    gap: clamp(1rem, 3vw, 1.5rem);
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
     margin-top: 1.5rem;
 }
 
@@ -183,47 +249,100 @@ body {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: clamp(1rem, 3vw, 1.25rem);
+    padding: 1.5rem;
     transition: var(--transition);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    will-change: transform;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: cardEntrance 0.5s ease forwards;
+    box-shadow: var(--shadow-sm);
+}
+
+.business-card:nth-child(1) { animation-delay: 0.1s; }
+.business-card:nth-child(2) { animation-delay: 0.15s; }
+.business-card:nth-child(3) { animation-delay: 0.2s; }
+.business-card:nth-child(4) { animation-delay: 0.25s; }
+.business-card:nth-child(5) { animation-delay: 0.3s; }
+.business-card:nth-child(6) { animation-delay: 0.35s; }
+.business-card:nth-child(7) { animation-delay: 0.4s; }
+.business-card:nth-child(8) { animation-delay: 0.45s; }
+.business-card:nth-child(9) { animation-delay: 0.5s; }
+
+@keyframes cardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.business-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0,82,204,0.03), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
 }
 
 .business-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
-    border-color: var(--secondary);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+    background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                linear-gradient(135deg, var(--secondary), var(--accent)) border-box;
+    border: 1px solid transparent;
+}
+
+.business-card:hover::before {
+    transform: translateX(100%);
 }
 
 .card-icon {
-    width: clamp(48px, 6vw, 60px);
-    height: clamp(48px, 6vw, 60px);
-    border-radius: var(--radius);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
     background: var(--bg-alt);
     display: grid;
     place-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     font-weight: 700;
     color: var(--secondary);
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-size: 1.8rem;
     flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.business-card:hover .card-icon {
+    transform: scale(1.1);
+    background: var(--secondary);
+    color: white;
 }
 
 .business-card h3 {
     color: var(--primary);
     margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
 .business-card p {
     color: var(--text-alt);
-    font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
-    margin-bottom: 1rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
     flex: 1;
 }
 
@@ -232,59 +351,98 @@ body {
     width: 100%;
     background: var(--secondary);
     color: white;
-    padding: 0.625rem 1.25rem;
-    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     transition: var(--transition);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.card-link::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s;
+    z-index: -1;
+}
+
+.card-link:hover::after {
+    width: 300px;
+    height: 300px;
 }
 
 .card-link:hover {
     background: color-mix(in srgb, var(--secondary) 90%, black);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-    gap: clamp(1rem, 3vw, 1.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
     margin-top: 2rem;
 }
 
 .info-card {
     background: var(--bg-alt);
     border-radius: var(--radius);
-    padding: clamp(1.25rem, 3vw, 1.5rem);
+    padding: 2rem 1.5rem;
     text-align: center;
     transition: var(--transition);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
 }
 
 .info-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--secondary);
 }
 
 .info-card h3 {
     color: var(--secondary);
-    margin-bottom: 0.75rem;
-    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
     font-weight: 600;
+    position: relative;
+    display: inline-block;
+}
+
+.info-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 1px;
 }
 
 .info-card p {
     color: var(--text-alt);
-    font-size: 0.875rem;
-    line-height: 1.5;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .footer {
     background: var(--bg-alt);
-    padding: clamp(1.25rem, 3vw, 1.5rem) 0;
+    padding: 2rem 0;
     margin-top: auto;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--text-alt);
     border-top: 1px solid var(--border);
 }
@@ -293,13 +451,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .footer-links {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-link {
@@ -309,44 +468,30 @@ body {
     align-items: center;
     gap: 0.5rem;
     transition: var(--transition);
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    background: var(--bg);
+    box-shadow: var(--shadow-sm);
 }
 
 .footer-link:hover {
     color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .footer-link svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     fill: currentColor;
-}
-
-.install-btn {
-    background: var(--secondary);
-    color: white;
-    border: none;
-    border-radius: var(--radius);
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: var(--transition);
-    margin-top: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.install-btn:hover {
-    background: color-mix(in srgb, var(--secondary) 90%, black);
-    transform: translateY(-1px);
 }
 
 .back-to-top {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 44px;
-    height: 44px;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
     background: var(--secondary);
     color: white;
     border: none;
@@ -355,54 +500,17 @@ body {
     display: none;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     transition: var(--transition);
     z-index: 999;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
 }
 
 .back-to-top:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.05);
     background: color-mix(in srgb, var(--secondary) 90%, black);
-}
-
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-top-color: var(--secondary);
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.notification-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: var(--radius);
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: var(--transition);
-    margin-top: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.notification-btn:hover {
-    background: color-mix(in srgb, var(--accent) 90%, black);
-    transform: translateY(-1px);
-}
-
-.notification-btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    box-shadow: var(--shadow-lg);
 }
 
 @media (max-width: 768px) {
@@ -412,7 +520,7 @@ body {
     
     .nav {
         position: fixed;
-        top: 64px;
+        top: 70px;
         left: 0;
         right: 0;
         background: var(--bg);
@@ -421,21 +529,30 @@ body {
         flex-direction: column;
         display: none;
         z-index: 999;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-md);
+        backdrop-filter: blur(10px);
     }
     
     .nav.active {
         display: flex;
     }
     
+    .nav-link {
+        width: 100%;
+        text-align: center;
+    }
+    
     .business-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
     }
     
     .footer-links {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 1rem;
+    }
+    
+    .footer-link {
+        justify-content: center;
     }
 }
 
@@ -454,6 +571,11 @@ body {
     
     html {
         scroll-behavior: auto;
+    }
+    
+    .business-card {
+        animation: none;
+        opacity: 1;
     }
 }
 </style>
@@ -530,20 +652,6 @@ body {
 <span>Facebook</span>
 </a>
 </div>
-<div class="notification-buttons">
-<button class="install-btn" id="installBtn" aria-label="Instalar aplicación">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-<path fill="currentColor" d="M10 3H14V11H18L12 17L6 11H10V3Z"/>
-</svg>
-Instalar App
-</button>
-<button class="notification-btn" id="notificationBtn" aria-label="Activar notificaciones">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
-<path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
-</svg>
-<span id="notificationText">Activar Notificaciones</span>
-</button>
-</div>
 </div>
 </div>
 </footer>
@@ -560,25 +668,12 @@ const CONFIG = {
         { title: "Dulce Alegria", desc: "Postres y dulces tradicionales a tu medida", url: "https://spoo.me/Dulce_Alegria", initial: "D-A" },
         { title: "Toledo Shop", desc: "Electrodomésticos y tecnología para el hogar", url: "https://spoo.me/toledoshop", initial: "T-S" },
         { title: "Phone Store", desc: "Móviles, accesorios y soluciones tecnológicas", url: "https://spoo.me/phone_store", initial: "P-S" }
-    ],
-    pwa: {
-        name: "KOOPAGES",
-        shortName: "KOOPAGES",
-        description: "Plataforma de negocios patrocinados",
-        startUrl: "/",
-        display: "standalone",
-        themeColor: "#0F1C3F",
-        backgroundColor: "#0F1C3F"
-    }
+    ]
 };
 
 class PlatformManager {
     constructor() {
         this.currentSection = 'negocios';
-        this.deferredPrompt = null;
-        this.notificationPermission = null;
-        this.lastVisitKey = 'koopages_last_visit';
-        this.notificationEnabledKey = 'koopages_notifications';
         this.init();
     }
 
@@ -587,12 +682,7 @@ class PlatformManager {
         this.setupNavigation();
         this.setupBackToTop();
         this.setupCurrentYear();
-        this.setupPerformance();
-        this.setupObservers();
-        this.setupPWA();
-        this.setupInstallButton();
-        this.setupNotifications();
-        this.checkLastVisit();
+        this.setupRippleEffect();
     }
 
     renderBusinesses() {
@@ -675,6 +765,13 @@ class PlatformManager {
                 if (targetLink) targetLink.click();
             }
         });
+
+        // Activar sección basada en hash inicial
+        const initialHash = window.location.hash.substring(1);
+        if (initialHash && initialHash !== this.currentSection) {
+            const targetLink = document.querySelector(`.nav-link[data-section="${initialHash}"]`);
+            if (targetLink) targetLink.click();
+        }
     }
 
     closeMobileMenu() {
@@ -712,280 +809,41 @@ class PlatformManager {
         if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
 
-    setupPerformance() {
-        if ('connection' in navigator && navigator.connection.saveData === true) {
-            document.documentElement.classList.add('save-data');
-        }
-
-        window.addEventListener('load', () => {
-            requestAnimationFrame(() => {
-                document.body.style.opacity = '1';
+    setupRippleEffect() {
+        // Añadir efecto ripple a todos los botones y enlaces (opcional)
+        const rippleElements = document.querySelectorAll('.card-link, .footer-link, .back-to-top');
+        rippleElements.forEach(el => {
+            el.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+                ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.backgroundColor = 'rgba(255,255,255,0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
             });
         });
-    }
-
-    setupObservers() {
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('loaded');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.business-card').forEach(card => {
-                observer.observe(card);
-            });
-        }
-    }
-
-    setupPWA() {
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swCode = `
-                    const CACHE_NAME = 'koopages-v1.0';
-                    const urlsToCache = [
-                        './',
-                        './index.html',
-                        './?utm_source=pwa'
-                    ];
-
-                    self.addEventListener('install', event => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then(cache => cache.addAll(urlsToCache))
-                        );
-                    });
-
-                    self.addEventListener('fetch', event => {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then(response => response || fetch(event.request))
-                        );
-                    });
-
-                    self.addEventListener('activate', event => {
-                        event.waitUntil(
-                            caches.keys().then(cacheNames => {
-                                return Promise.all(
-                                    cacheNames.map(cacheName => {
-                                        if (cacheName !== CACHE_NAME) {
-                                            return caches.delete(cacheName);
-                                        }
-                                    })
-                                );
-                            })
-                        );
-                    });
-
-                    self.addEventListener('push', event => {
-                        const options = {
-                            body: event.data.text(),
-                            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
-                            badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
-                            vibrate: [200, 100, 200],
-                            data: { url: '/' }
-                        };
-                        
-                        event.waitUntil(
-                            self.registration.showNotification('KOOPAGES', options)
-                        );
-                    });
-
-                    self.addEventListener('notificationclick', event => {
-                        event.notification.close();
-                        event.waitUntil(
-                            clients.openWindow('/')
-                        );
-                    });
-                `;
-
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-
-                navigator.serviceWorker.register(swUrl)
-                    .then(registration => {
-                        registration.update();
-                    })
-                    .catch(error => {
-                        console.log('Error en Service Worker:', error);
-                    });
-            });
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            this.deferredPrompt = e;
-            const installBtn = document.getElementById('installBtn');
-            if (installBtn) {
-                installBtn.style.display = 'inline-flex';
-            }
-        });
-
-        window.addEventListener('appinstalled', () => {
-            this.deferredPrompt = null;
-            const installBtn = document.getElementById('installBtn');
-            if (installBtn) {
-                installBtn.style.display = 'none';
-            }
-        });
-    }
-
-    setupInstallButton() {
-        const installBtn = document.getElementById('installBtn');
-        if (installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (this.deferredPrompt) {
-                    this.deferredPrompt.prompt();
-                    const { outcome } = await this.deferredPrompt.userChoice;
-                    this.deferredPrompt = null;
-                    installBtn.style.display = 'none';
-                } else {
-                    window.open('https://koopages.github.io/oficial/', '_blank');
-                }
-            });
-
-            if (window.matchMedia('(display-mode: standalone)').matches || 
-                window.navigator.standalone === true) {
-                installBtn.style.display = 'none';
-            }
-        }
-    }
-
-    setupNotifications() {
-        const notificationBtn = document.getElementById('notificationBtn');
-        const notificationText = document.getElementById('notificationText');
-        
-        if (!('Notification' in window)) {
-            notificationBtn.style.display = 'none';
-            return;
-        }
-
-        this.notificationPermission = Notification.permission;
-        
-        if (this.notificationPermission === 'granted') {
-            this.updateNotificationButton(true);
-            this.scheduleDailyNotification();
-        } else if (this.notificationPermission === 'denied') {
-            this.updateNotificationButton(false);
-        }
-
-        notificationBtn.addEventListener('click', () => {
-            if (this.notificationPermission === 'granted') {
-                this.disableNotifications();
-            } else {
-                this.requestNotificationPermission();
-            }
-        });
-    }
-
-    async requestNotificationPermission() {
-        try {
-            const permission = await Notification.requestPermission();
-            this.notificationPermission = permission;
-            
-            if (permission === 'granted') {
-                this.updateNotificationButton(true);
-                localStorage.setItem(this.notificationEnabledKey, 'true');
-                this.scheduleDailyNotification();
-                this.showNotification('¡Notificaciones activadas!', 'Te recordaremos visitar KOOPAGES regularmente.');
-            } else {
-                this.updateNotificationButton(false);
-                localStorage.removeItem(this.notificationEnabledKey);
-            }
-        } catch (error) {
-            console.error('Error al solicitar permiso:', error);
-        }
-    }
-
-    disableNotifications() {
-        localStorage.removeItem(this.notificationEnabledKey);
-        this.updateNotificationButton(false);
-        this.showNotification('Notificaciones desactivadas', 'Ya no recibirás recordatorios diarios.');
-    }
-
-    updateNotificationButton(enabled) {
-        const notificationBtn = document.getElementById('notificationBtn');
-        const notificationText = document.getElementById('notificationText');
-        
-        if (enabled) {
-            notificationBtn.classList.remove('disabled');
-            notificationText.textContent = 'Desactivar Notificaciones';
-        } else {
-            notificationBtn.classList.add('disabled');
-            notificationText.textContent = 'Activar Notificaciones';
-        }
-    }
-
-    scheduleDailyNotification() {
-        if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
-        
-        if (this.notificationPermission === 'granted') {
-            this.setupPeriodicSync();
-        }
-    }
-
-    setupPeriodicSync() {
-        if ('periodicSync' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.ready.then(registration => {
-                registration.periodicSync.register('daily-reminder', {
-                    minInterval: 24 * 60 * 60 * 1000
-                }).then(() => {
-                    console.log('Sincronización periódica registrada');
-                }).catch(error => {
-                    console.log('Error al registrar sincronización:', error);
-                });
-            });
-        }
-    }
-
-    showNotification(title, body) {
-        if (this.notificationPermission !== 'granted') return;
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.ready.then(registration => {
-                registration.showNotification(title, {
-                    body: body,
-                    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
-                    badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>',
-                    vibrate: [200, 100, 200],
-                    tag: 'koopages-reminder'
-                });
-            });
-        } else {
-            new Notification(title, {
-                body: body,
-                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="15" fill="%230F1C3F"/><text x="50" y="65" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white" text-anchor="middle">K</text></svg>'
-            });
-        }
-    }
-
-    checkLastVisit() {
-        const lastVisit = localStorage.getItem(this.lastVisitKey);
-        const now = Date.now();
-        const oneDay = 24 * 60 * 60 * 1000;
-
-        if (!lastVisit) {
-            localStorage.setItem(this.lastVisitKey, now.toString());
-            return;
-        }
-
-        const timeSinceLastVisit = now - parseInt(lastVisit);
-        
-        if (timeSinceLastVisit > oneDay) {
-            if (this.notificationPermission === 'granted' && 
-                localStorage.getItem(this.notificationEnabledKey) === 'true') {
-                this.showNotification(
-                    '¡Te extrañamos en KOOPAGES!',
-                    'Han pasado más de 24 horas desde tu última visita. ¡Descubre nuevos negocios y productos!'
-                );
-            }
-        }
-
-        localStorage.setItem(this.lastVisitKey, now.toString());
     }
 }
+
+// Añadir keyframes para ripple si no existen en CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        to { transform: scale(4); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
 
 document.addEventListener('DOMContentLoaded', () => {
     new PlatformManager();
